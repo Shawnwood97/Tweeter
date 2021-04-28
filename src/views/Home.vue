@@ -1,9 +1,18 @@
 <template>
-  <div class="home"></div>
+  <div class="home">
+    <div>This is the homepage</div>
+    <button @click="gotoLogin">Login</button>
+  </div>
 </template>
 
 <script>
-// @ is an alias to /src
+export default {
+  name: "home",
 
-export default {};
+  methods: {
+    gotoLogin() {
+      this.$router.push("login");
+    },
+  },
+};
 </script>
