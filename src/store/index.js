@@ -13,6 +13,8 @@ export default new Vuex.Store({
     userId: null,
     loginError: "",
     showRegistration: false,
+    defaultDisplayPic:
+      "https://robohash.org/perferendisfacerequidem.jpg?size=400x400&set=set2",
 
     allUsers: [],
   },
