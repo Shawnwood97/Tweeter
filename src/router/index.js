@@ -40,6 +40,7 @@ const routes = [
     path: "/:id",
     name: "profile",
     component: profile,
+    props: true,
   },
 ];
 

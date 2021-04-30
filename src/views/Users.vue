@@ -1,7 +1,12 @@
 <template>
   <div>
     <article v-for="user in allUsers" :key="user.userId">
-      <router-link :to="{ name: 'profile', params: { id: user.username } }">
+      <router-link
+        :to="{
+          name: 'profile',
+          params: { id: user.userId },
+        }"
+      >
         <h5>{{ user.username }}</h5>
       </router-link>
       <p>{{ user.bio }}</p>
