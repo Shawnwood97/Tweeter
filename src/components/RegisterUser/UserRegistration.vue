@@ -104,7 +104,6 @@ main {
 form {
   display: grid;
   gap: 10px;
-  width: 500px;
 
   .formItem {
     display: grid;
