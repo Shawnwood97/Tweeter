@@ -9,7 +9,7 @@ import cookies from "vue-cookies";
 export default {
   data() {
     return {
-      userIdCookie: cookies.get("userId"),
+      userIdCookie: Number(cookies.get("userId")),
       loginToken: cookies.get("loginToken"),
     };
   },
@@ -17,6 +17,7 @@ export default {
   mounted() {
     if (!this.$store.state.loginToken && this.userIdCookie && this.loginToken) {
       this.$store.commit("setLoginToken", this.loginToken);
+      this.$store.commit("setUserId", this.userIdCookie);
       this.$store.dispatch("checkLoggedIn");
     }
   },

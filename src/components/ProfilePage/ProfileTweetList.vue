@@ -17,7 +17,7 @@ export default {
 
   data() {
     return {
-      userTweets: null,
+      userTweets: this.$store.state.currProfileTweets,
     };
   },
 
