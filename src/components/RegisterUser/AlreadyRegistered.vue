@@ -15,6 +15,7 @@ export default {
   methods: {
     logOut() {
       cookies.remove("loginToken");
+      cookies.remove("userId");
       this.$store.commit("setLoginToken", null);
       this.$router.push("/");
     },

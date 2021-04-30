@@ -1,7 +1,8 @@
 <template>
   <div class="home">
     <div>This is the homepage</div>
-    <button @click="gotoLogin">Login</button>
+    <button @click="navToLogin">Login</button>
+    <button @click="navToReg">Register</button>
   </div>
 </template>
 
@@ -10,9 +11,19 @@ export default {
   name: "home",
 
   methods: {
-    gotoLogin() {
+    navToLogin() {
       this.$router.push("login");
+    },
+    navToReg() {
+      this.$router.push("register");
     },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.home {
+  display: grid;
+  gap: 20px;
+}
+</style>

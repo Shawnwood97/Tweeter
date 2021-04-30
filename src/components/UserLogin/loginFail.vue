@@ -10,9 +10,9 @@
 export default {
   name: "login-fail",
 
-  method: {
+  methods: {
     tryAgain() {
-      this.$store.commit("setLoginError", "");
+      this.$router.go();
     },
   },
 };

@@ -84,7 +84,9 @@ export default {
           console.log(res);
           // set cookie and update login state
           cookies.set("loginToken", res.data.loginToken);
+          cookies.set("userId", res.data.userId);
           this.$store.commit("setLoginToken", res.data.loginToken);
+          this.$store.commit("setUserId", res.data.userId);
         })
         .catch((err) => {
           console.log(err);

@@ -1,6 +1,5 @@
 <template>
-  <login-fail v-if="$store.state.loginError" />
-  <div v-else-if="!$store.state.loginToken">
+  <div v-if="!$store.state.loginToken">
     <h1>Login</h1>
     <form action="javascript:void(0)">
       <div>
@@ -15,31 +14,23 @@
         <input @click="logIn" type="submit" value="Login" />
       </div>
     </form>
-    <p>Not Registered? <span @click="showReg">Click Here</span> To Register!</p>
+    <p>
+      Not Registered? <span @click="navToRegister">Click Here</span> To
+      Register!
+    </p>
   </div>
-
-  <login-success v-else-if="loginSuccess" />
 </template>
 
 <script>
 import cookies from "vue-cookies";
 import axios from "axios";
-import loginSuccess from "./loginSuccess.vue";
-import LoginFail from "./loginFail.vue";
 
 export default {
-  components: { loginSuccess, LoginFail },
   name: "user-login",
 
-  computed: {
-    loginSuccess() {
-      return Boolean(this.$store.state.loginToken);
-    },
-  },
-
   methods: {
-    showReg() {
-      this.$store.commit("regToggle", true);
+    navToRegister() {
+      this.$router.push("register");
     },
 
     logIn() {
@@ -52,14 +43,16 @@ export default {
             "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
           },
           data: {
-            email: document.getElementById("usernameInput").value,
+            username: document.getElementById("usernameInput").value,
             password: document.getElementById("passwordInput").value,
           },
         })
         .then((res) => {
           if (res.data.loginToken !== undefined) {
             cookies.set("loginToken", res.data.loginToken);
+            cookies.set("userId", res.data.userId);
             this.$store.commit("setLoginToken", res.data.loginToken);
+            this.$store.commit("setUserId", res.data.userId);
             this.$store.commit("setUsername", res.data.username);
           } else {
             this.$store.commit("setLoginToken", null);
@@ -69,6 +62,7 @@ export default {
           console.log(err.response);
           this.$store.commit("setLoginError", err.response.data);
           cookies.remove("loginToken");
+          cookies.remove("userId");
         });
     },
   },
@@ -79,9 +73,13 @@ export default {
 form {
   display: grid;
   gap: 10px;
+}
+span {
+  text-decoration: underline;
+  font-weight: bold;
 
-  button {
-    width: 60px;
+  &:hover {
+    cursor: pointer;
   }
 }
 </style>

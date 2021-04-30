@@ -4,6 +4,25 @@
   </div>
 </template>
 
+<script>
+import cookies from "vue-cookies";
+export default {
+  data() {
+    return {
+      userIdCookie: cookies.get("userId"),
+      loginToken: cookies.get("loginToken"),
+    };
+  },
+
+  mounted() {
+    if (!this.$store.state.loginToken && this.userIdCookie && this.loginToken) {
+      this.$store.commit("setLoginToken", this.loginToken);
+      this.$store.dispatch("checkLoggedIn");
+    }
+  },
+};
+</script>
+
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
