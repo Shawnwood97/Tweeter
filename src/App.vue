@@ -9,7 +9,7 @@ import cookies from "vue-cookies";
 export default {
   data() {
     return {
-      userIdCookie: Number(cookies.get("userId")),
+      userIdCookie: cookies.get("userId"),
       loginToken: cookies.get("loginToken"),
     };
   },

@@ -2,7 +2,7 @@
   <div>
     <h3>Publish A Tweet</h3>
     <input id="tweetContent" type="text" placeholder="Enter Tweet" />
-    <button>Send</button>
+    <button @click="createTweet">Send</button>
   </div>
 </template>
 
