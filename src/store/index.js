@@ -13,6 +13,8 @@ export default new Vuex.Store({
     userId: null,
     loginError: "",
     showRegistration: false,
+
+    allUsers: [],
   },
   mutations: {
     setLoginToken(state, data) {
@@ -30,6 +32,9 @@ export default new Vuex.Store({
     regToggle(state, data) {
       state.showRegistration = data;
     },
+    setAllUsers(state, data) {
+      state.allUsers = data;
+    },
   },
   actions: {
     checkLoggedIn(context) {
@@ -46,14 +51,14 @@ export default new Vuex.Store({
         })
         .then((res) => {
           context.commit("setUsername", res.data[0].username);
-          console.log(context);
+          // console.log(context);
         })
         .catch((err) => {
           console.log(err.response);
         });
     },
 
-    getProfile(context, data) {
+    getUsers(context) {
       axios
         .request({
           url: "https://tweeterest.ml/api/users",
@@ -61,13 +66,11 @@ export default new Vuex.Store({
           headers: {
             "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
           },
-          params: {
-            userId: data,
-          },
         })
         .then((res) => {
+          context.commit("setAllUsers", res.data);
           console.log(res.data);
-          console.log(context);
+          // console.log(context);
         })
         .catch((err) => {
           console.log(err.response);

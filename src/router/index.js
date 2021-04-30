@@ -5,6 +5,7 @@ import login from "@/views/Login.vue";
 import register from "@/views/Register.vue";
 import feed from "@/views/Feed.vue";
 import profile from "@/views/Profile.vue";
+import users from "@/views/Users.vue";
 
 Vue.use(VueRouter);
 
@@ -31,7 +32,12 @@ const routes = [
     component: feed,
   },
   {
-    path: "/:username",
+    path: "/users",
+    name: "users",
+    component: users,
+  },
+  {
+    path: "/:id",
     name: "profile",
     component: profile,
   },
