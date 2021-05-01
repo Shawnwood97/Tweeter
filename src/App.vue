@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <button @click="logoutUser">LO</button>
     <router-view />
   </div>
 </template>
@@ -12,6 +13,12 @@ export default {
       userIdCookie: cookies.get("userId"),
       loginToken: cookies.get("loginToken"),
     };
+  },
+
+  methods: {
+    logoutUser() {
+      this.$store.dispatch("logOut");
+    },
   },
 
   mounted() {

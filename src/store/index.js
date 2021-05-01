@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import router from "../router";
 
 import cookies from "vue-cookies";
 
@@ -76,6 +77,31 @@ export default new Vuex.Store({
         })
         .catch((err) => {
           console.log(err.response);
+        });
+    },
+
+    logOut(context) {
+      axios
+        .request({
+          url: "https://tweeterest.ml/api/login",
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
+          },
+          data: {
+            loginToken: context.state.loginToken,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          cookies.remove("loginToken");
+          cookies.remove("userId");
+          context.commit("setLoginToken", null);
+          router.push("/");
+        })
+        .catch((err) => {
+          console.log(err);
         });
     },
   },

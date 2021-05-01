@@ -2,9 +2,13 @@
   <section>
     <div v-if="userInfo !== null">
       <img :src="displayPicture" alt="" />
-      <h2>
-        {{ userInfo[0].username }}
-      </h2>
+      <div>
+        <h2>
+          {{ userInfo[0].username }}
+        </h2>
+        <profile-follow-button :currentProfile="userInfo[0].username" />
+      </div>
+
       <p>{{ userInfo[0].email }}</p>
       <p>{{ userInfo[0].bio }}</p>
       <p>DOB: {{ userInfo[0].birthdate }}</p>
@@ -15,7 +19,9 @@
 
 <script>
 import axios from "axios";
+import ProfileFollowButton from "./ProfileFollowButton.vue";
 export default {
+  components: { ProfileFollowButton },
   name: "profile-user-info",
 
   data() {

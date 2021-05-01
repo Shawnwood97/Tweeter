@@ -1,7 +1,8 @@
 <template>
   <div>
+    <h2>All Tweets</h2>
     <ind-tweet
-      v-for="tweet in userTweets"
+      v-for="tweet in allTweets"
       :key="tweet.tweetId"
       :tweetInfo="tweet"
     />
@@ -10,14 +11,14 @@
 
 <script>
 import axios from "axios";
-import IndTweet from "../TweetComponents/IndTweet.vue";
+import IndTweet from "../components/TweetComponents/IndTweet.vue";
 export default {
   components: { IndTweet },
-  name: "profile-tweet-list",
+  name: "tweets",
 
   data() {
     return {
-      userTweets: [],
+      allTweets: [],
     };
   },
 
@@ -29,13 +30,10 @@ export default {
         headers: {
           "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
         },
-        params: {
-          userId: this.$route.params.id,
-        },
       })
       .then((res) => {
         console.log(res.data);
-        this.userTweets = res.data.reverse();
+        this.allTweets = res.data.reverse();
       })
       .catch((err) => {
         console.log(err.response);
