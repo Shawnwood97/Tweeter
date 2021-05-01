@@ -34,7 +34,7 @@ export default {
         },
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         this.userTweets = res.data.reverse();
       })
       .catch((err) => {

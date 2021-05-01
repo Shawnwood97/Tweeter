@@ -6,7 +6,7 @@
         <h2>
           {{ userInfo[0].username }}
         </h2>
-        <profile-follow-button :currentProfile="userInfo[0].username" />
+        <profile-follow-button :currentProfile="userInfo[0]" />
       </div>
 
       <p>{{ userInfo[0].email }}</p>

@@ -1,6 +1,7 @@
 <template>
-  <div id="app">
-    <button @click="logoutUser">LO</button>
+  <div v-if="!initComplete" id="loading">Loading Site Assets</div>
+  <div v-else id="app">
+    <button @click="logoutUser">Logout</button>
     <router-view />
   </div>
 </template>
@@ -15,6 +16,12 @@ export default {
     };
   },
 
+  computed: {
+    initComplete() {
+      return this.$store.state.initComplete;
+    },
+  },
+
   methods: {
     logoutUser() {
       this.$store.dispatch("logOut");
@@ -26,6 +33,7 @@ export default {
       this.$store.commit("setLoginToken", this.loginToken);
       this.$store.commit("setUserId", this.userIdCookie);
       this.$store.dispatch("checkLoggedIn");
+      // this.$store.dispatch("getUserFollows");
     }
   },
 };

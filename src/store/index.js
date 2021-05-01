@@ -9,6 +9,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    initComplete: false,
     loginToken: "",
     username: null,
     userId: null,
@@ -18,6 +19,8 @@ export default new Vuex.Store({
       "https://robohash.org/perferendisfacerequidem.jpg?size=400x400&set=set2",
 
     allUsers: [],
+
+    followedUsers: [],
   },
   mutations: {
     setLoginToken(state, data) {
@@ -38,6 +41,12 @@ export default new Vuex.Store({
     setAllUsers(state, data) {
       state.allUsers = data;
     },
+    setFollowedUsers(state, data) {
+      state.followedUsers = data;
+    },
+    setInitComplete(state, data) {
+      state.initComplete = data;
+    },
   },
   actions: {
     checkLoggedIn(context) {
@@ -54,6 +63,7 @@ export default new Vuex.Store({
         })
         .then((res) => {
           context.commit("setUsername", res.data[0].username);
+          context.dispatch("getUserFollows");
           // console.log(context);
         })
         .catch((err) => {
@@ -72,7 +82,7 @@ export default new Vuex.Store({
         })
         .then((res) => {
           context.commit("setAllUsers", res.data);
-          console.log(res.data);
+          // console.log(res.data);
           // console.log(context);
         })
         .catch((err) => {
@@ -102,6 +112,28 @@ export default new Vuex.Store({
         })
         .catch((err) => {
           console.log(err);
+        });
+    },
+    getUserFollows(context) {
+      axios
+        .request({
+          url: "https://tweeterest.ml/api/follows",
+          method: "GET",
+          headers: {
+            "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
+          },
+          params: {
+            userId: context.state.userId,
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+          context.commit("setFollowedUsers", res.data);
+          context.commit("setInitComplete", true);
+          // console.log(context.state.followedUsers);
+        })
+        .catch((err) => {
+          console.log(err.response);
         });
     },
   },
