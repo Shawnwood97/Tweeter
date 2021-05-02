@@ -3,7 +3,7 @@
     <button v-if="userFollowed === false" @click="followUser">
       Follow {{ currentProfile.username }}
     </button>
-    <button v-else @click="followUser">
+    <button v-else @click="unFollowUser">
       UnFollow {{ currentProfile.username }}
     </button>
   </div>
@@ -87,6 +87,29 @@ export default {
           console.log(res.data);
 
           this.followedUsers.push(this.currentProfile);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    },
+    unFollowUser() {
+      axios
+        .request({
+          url: "https://tweeterest.ml/api/follows",
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
+          },
+          data: {
+            loginToken: this.$store.state.loginToken,
+            followId: Number(this.$route.params.id),
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+
+          this.followedUsers.splice(this.currentProfile, 1);
         })
         .catch((err) => {
           console.log(err.response);

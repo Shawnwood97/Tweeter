@@ -33,7 +33,10 @@ export default {
       this.$store.commit("setLoginToken", this.loginToken);
       this.$store.commit("setUserId", this.userIdCookie);
       this.$store.dispatch("checkLoggedIn");
+      console.log(this.$store.state.loginToken);
       // this.$store.dispatch("getUserFollows");
+    } else {
+      this.$store.commit("setInitComplete", true);
     }
   },
 };
