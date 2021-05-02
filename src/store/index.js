@@ -21,6 +21,8 @@ export default new Vuex.Store({
     allUsers: [],
 
     followedUsers: [],
+
+    currProfileFollowed: false,
   },
   mutations: {
     setLoginToken(state, data) {
@@ -46,6 +48,9 @@ export default new Vuex.Store({
     },
     setInitComplete(state, data) {
       state.initComplete = data;
+    },
+    updateCurrentProfileFollowed(state, data) {
+      state.currProfileFollowed = data;
     },
   },
   actions: {

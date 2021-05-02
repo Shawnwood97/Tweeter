@@ -14,15 +14,18 @@ import axios from "axios";
 export default {
   name: "profile-follow-button",
 
-  data() {
-    return {
-      userFollowed: false,
-    };
-  },
+  // data() {
+  //   return {
+  //     userFollowed: this.$store.state.currProfileFollowed,
+  //   };
+  // },
 
   computed: {
     followedUsers() {
       return this.$store.state.followedUsers;
+    },
+    userFollowed() {
+      return this.$store.state.currProfileFollowed;
     },
   },
 
@@ -36,7 +39,8 @@ export default {
       // console.log(user);
       // console.log(this.followedUsers[i].userId);
       if (this.followedUsers[i].userId === Number(this.$route.params.id)) {
-        this.userFollowed = true;
+        // this.userFollowed = true;
+        this.$store.commit("updateCurrentProfileFollowed", true);
       }
     }
   },
@@ -87,6 +91,7 @@ export default {
           console.log(res.data);
 
           this.followedUsers.push(this.currentProfile);
+          this.$store.commit("updateCurrentProfileFollowed", true);
         })
         .catch((err) => {
           console.log(err.response);
@@ -110,6 +115,7 @@ export default {
           console.log(res.data);
 
           this.followedUsers.splice(this.currentProfile, 1);
+          this.$store.commit("updateCurrentProfileFollowed", false);
         })
         .catch((err) => {
           console.log(err.response);
