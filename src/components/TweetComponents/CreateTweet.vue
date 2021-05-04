@@ -11,6 +11,12 @@ import axios from "axios";
 export default {
   name: "create-tweet",
 
+  computed: {
+    userTweets() {
+      return this.$store.state.userTweets;
+    },
+  },
+
   methods: {
     createTweet() {
       axios
@@ -28,6 +34,7 @@ export default {
         })
         .then((res) => {
           console.log(res.data);
+          this.userTweets.unshift(res.data);
         })
         .catch((err) => {
           console.log(err.response);

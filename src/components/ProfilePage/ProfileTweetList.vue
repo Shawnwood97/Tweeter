@@ -15,10 +15,16 @@ export default {
   components: { IndTweet },
   name: "profile-tweet-list",
 
-  data() {
-    return {
-      userTweets: [],
-    };
+  // data() {
+  //   return {
+  //     userTweets: this.$store.state.userTweets,
+  //   };
+  // },
+
+  computed: {
+    userTweets() {
+      return this.$store.state.userTweets;
+    },
   },
 
   mounted() {
@@ -35,7 +41,8 @@ export default {
       })
       .then((res) => {
         // console.log(res.data);
-        this.userTweets = res.data.reverse();
+        this.$store.commit("setUserTweets", res.data.reverse());
+        // this.userTweets = res.data.reverse();
       })
       .catch((err) => {
         console.log(err.response);

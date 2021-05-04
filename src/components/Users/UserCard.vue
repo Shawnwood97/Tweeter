@@ -9,7 +9,10 @@
       >
         <h5>{{ user.username }}</h5>
       </router-link>
-      <profile-follow-button :currentProfile="user" />
+      <profile-follow-button
+        v-if="user.userId !== $store.state.userId"
+        :currentProfile="user"
+      />
       <p>{{ user.bio }}</p>
     </article>
   </div>

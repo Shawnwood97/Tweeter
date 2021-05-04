@@ -6,7 +6,10 @@
         <h2>
           {{ userInfo[0].username }}
         </h2>
-        <profile-follow-button :currentProfile="userInfo[0]" />
+        <profile-follow-button
+          v-if="userInfo[0].userId !== $store.state.userId"
+          :currentProfile="userInfo[0]"
+        />
       </div>
 
       <p>{{ userInfo[0].email }}</p>

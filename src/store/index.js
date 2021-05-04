@@ -22,7 +22,7 @@ export default new Vuex.Store({
 
     followedUsers: [],
 
-    currProfileFollowed: false,
+    userTweets: [],
   },
   mutations: {
     setLoginToken(state, data) {
@@ -51,6 +51,9 @@ export default new Vuex.Store({
     },
     updateCurrentProfileFollowed(state, data) {
       state.currProfileFollowed = data;
+    },
+    setUserTweets(state, data) {
+      state.userTweets = data;
     },
   },
   actions: {
