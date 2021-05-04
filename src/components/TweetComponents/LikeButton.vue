@@ -2,6 +2,7 @@
   <div>
     <button v-if="!tweetLiked" @click="likeTweet">+1</button>
     <button v-else @click="unLikeTweet">-1</button>
+    <p class="likeCounter">{{ tweetLikes }}</p>
   </div>
 </template>
 
@@ -13,6 +14,7 @@ export default {
   data() {
     return {
       tweetLiked: undefined,
+      tweetLikes: undefined,
     };
   },
 
@@ -38,6 +40,7 @@ export default {
         .then((res) => {
           console.log(res.data);
           this.tweetLiked = true;
+          this.tweetLikes++;
         })
         .catch((err) => {
           console.log(err.response);
@@ -61,6 +64,7 @@ export default {
         .then((res) => {
           console.log(res.data);
           this.tweetLiked = false;
+          this.tweetLikes--;
         })
         .catch((err) => {
           console.log(err.response);
@@ -88,6 +92,7 @@ export default {
             this.tweetLiked = false;
           }
         }
+        this.tweetLikes = res.data.length;
       })
       .catch((err) => {
         console.log(err.response);
