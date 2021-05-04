@@ -142,5 +142,9 @@ export default new Vuex.Store({
         });
     },
   },
-  getters: {},
+  getters: {
+    updateEachCard(state) {
+      return !state.currProfileFollowed;
+    },
+  },
 });

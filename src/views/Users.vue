@@ -1,6 +1,7 @@
 <template>
   <div>
-    <article v-for="user in allUsers" :key="user.userId">
+    <user-card v-for="user in allUsers" :key="user.userId" :user="user" />
+    <!-- <article v-for="user in allUsers" :key="user.userId">
       <router-link
         :to="{
           name: 'profile',
@@ -10,12 +11,14 @@
         <h5>{{ user.username }}</h5>
       </router-link>
       <p>{{ user.bio }}</p>
-    </article>
+    </article> -->
   </div>
 </template>
 
 <script>
+import UserCard from "../components/Users/UserCard.vue";
 export default {
+  components: { UserCard },
   name: "users",
 
   mounted() {

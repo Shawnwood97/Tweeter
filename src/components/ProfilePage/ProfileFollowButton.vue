@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button v-if="userFollowed === false" @click="followUser">
+    <button v-if="!userFollowed" @click="followUser">
       Follow {{ currentProfile.username }}
     </button>
     <button v-else @click="unFollowUser">
@@ -13,65 +13,30 @@
 import axios from "axios";
 export default {
   name: "profile-follow-button",
+  props: {
+    currentProfile: Object,
+  },
 
-  // data() {
-  //   return {
-  //     userFollowed: this.$store.state.currProfileFollowed,
-  //   };
-  // },
+  data() {
+    return {
+      userFollowed: "",
+    };
+  },
 
   computed: {
     followedUsers() {
       return this.$store.state.followedUsers;
     },
-    userFollowed() {
-      return this.$store.state.currProfileFollowed;
-    },
-  },
-
-  props: {
-    currentProfile: Object,
   },
 
   mounted() {
-    console.log(this.followedUsers);
     for (let i = 0; i < this.followedUsers.length; i++) {
-      // console.log(user);
-      // console.log(this.followedUsers[i].userId);
-      if (this.followedUsers[i].userId === Number(this.$route.params.id)) {
-        // this.userFollowed = true;
-        this.$store.commit("updateCurrentProfileFollowed", true);
+      if (this.followedUsers[i].userId === this.currentProfile.userId) {
+        this.userFollowed = true;
       }
     }
   },
 
-  // mounted() {
-  //   axios
-  //     .request({
-  //       url: "https://tweeterest.ml/api/follows",
-  //       method: "GET",
-  //       headers: {
-  //         "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
-  //       },
-  //       params: {
-  //         userId: this.$store.state.userId,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       console.log(this.$route.params.id);
-  //       for (let i = 0; i < res.data.length; i++) {
-  //         // console.log(user);
-  //         console.log(res.data[i].userId);
-  //         if (res.data[i].userId === Number(this.$route.params.id)) {
-  //           this.userFollowed = true;
-  //         }
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.response);
-  //     });
-  // },
   methods: {
     followUser() {
       axios
@@ -84,14 +49,13 @@ export default {
           },
           data: {
             loginToken: this.$store.state.loginToken,
-            followId: Number(this.$route.params.id),
+            followId: this.currentProfile.userId,
           },
         })
         .then((res) => {
           console.log(res.data);
-
-          this.followedUsers.push(this.currentProfile);
-          this.$store.commit("updateCurrentProfileFollowed", true);
+          this.userFollowed = true;
+          // this.followedUsers.push(this.currentProfile);
         })
         .catch((err) => {
           console.log(err.response);
@@ -108,14 +72,13 @@ export default {
           },
           data: {
             loginToken: this.$store.state.loginToken,
-            followId: Number(this.$route.params.id),
+            followId: this.currentProfile.userId,
           },
         })
         .then((res) => {
           console.log(res.data);
 
-          this.followedUsers.splice(this.currentProfile, 1);
-          this.$store.commit("updateCurrentProfileFollowed", false);
+          this.userFollowed = false;
         })
         .catch((err) => {
           console.log(err.response);
