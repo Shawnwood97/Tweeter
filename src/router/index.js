@@ -7,6 +7,7 @@ import feed from "@/views/Feed.vue";
 import profile from "@/views/Profile.vue";
 import users from "@/views/Users.vue";
 import tweets from "@/views/Tweets.vue";
+import editprofile from "@/views/EditProfile.vue";
 
 Vue.use(VueRouter);
 
@@ -46,6 +47,12 @@ const routes = [
     path: "/users/:id",
     name: "profile",
     component: profile,
+    props: true,
+  },
+  {
+    path: "/edit-profile",
+    name: "edit-profile",
+    component: editprofile,
     props: true,
   },
 ];

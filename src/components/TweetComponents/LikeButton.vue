@@ -80,11 +80,8 @@ export default {
 
   mounted() {
     for (let i = 0; i < this.getUserLikes.length; i++) {
-      console.log(this.getUserLikes[i].userId);
-      if (
-        this.getUserLikes[i].userId === this.$store.state.userId &&
-        this.getUserLikes[i].tweetId === this.tweetId
-      ) {
+      // console.log(this.getUserLikes[i].userId);
+      if (this.getUserLikes[i].tweetId === this.tweetId) {
         this.tweetLiked = true;
         break;
       } else {

@@ -1,6 +1,9 @@
 <template>
   <section>
     <div v-if="userInfo !== null">
+      <div v-if="userInfo[0].userId === $store.state.userId">
+        <router-link :to="{ name: 'edit-profile' }">Edit Profile</router-link>
+      </div>
       <img :src="displayPicture" alt="" />
       <div>
         <h2>
