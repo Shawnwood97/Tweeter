@@ -54,8 +54,8 @@ export default {
         })
         .then((res) => {
           console.log(res.data);
+          this.$store.commit("addFollowedUser", this.currentProfile);
           this.userFollowed = true;
-          // this.followedUsers.push(this.currentProfile);
         })
         .catch((err) => {
           console.log(err.response);
@@ -78,6 +78,14 @@ export default {
         .then((res) => {
           console.log(res.data);
 
+          for (let i = 0; i < this.$store.state.followedUsers.length; i++) {
+            if (
+              this.$store.state.followedUsers[i].userId ===
+              this.currentProfile.userId
+            ) {
+              this.$store.commit("removeFollowedUser", i);
+            }
+          }
           this.userFollowed = false;
         })
         .catch((err) => {

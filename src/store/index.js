@@ -23,6 +23,8 @@ export default new Vuex.Store({
     followedUsers: [],
 
     userTweets: [],
+
+    allLikes: [],
   },
   mutations: {
     setLoginToken(state, data) {
@@ -46,11 +48,17 @@ export default new Vuex.Store({
     setFollowedUsers(state, data) {
       state.followedUsers = data;
     },
+    addFollowedUser(state, data) {
+      state.followedUsers.push(data);
+    },
+    removeFollowedUser(state, data) {
+      state.followedUsers.splice(data, 1);
+    },
+    setAllLikes(state, data) {
+      state.allLikes = data;
+    },
     setInitComplete(state, data) {
       state.initComplete = data;
-    },
-    updateCurrentProfileFollowed(state, data) {
-      state.currProfileFollowed = data;
     },
     setUserTweets(state, data) {
       state.userTweets = data;
@@ -137,8 +145,34 @@ export default new Vuex.Store({
         .then((res) => {
           console.log(res.data);
           context.commit("setFollowedUsers", res.data);
-          context.commit("setInitComplete", true);
+          context.dispatch("getAllLikes");
+
           // console.log(context.state.followedUsers);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    },
+    getAllLikes(context) {
+      axios
+        .request({
+          url: "https://tweeterest.ml/api/tweet-likes",
+          method: "GET",
+          headers: {
+            "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
+          },
+        })
+        .then((res) => {
+          context.commit("setAllLikes", res.data);
+          context.commit("setInitComplete", true);
+          // for (let i = 0; i < res.data.length; i++) {
+          //   if (res.data[i].userId === this.$store.state.userId) {
+          //     this.tweetLiked = true;
+          //   } else {
+          //     this.tweetLiked = false;
+          //   }
+          // }
+          // this.tweetLikes = res.data.length;
         })
         .catch((err) => {
           console.log(err.response);
@@ -146,8 +180,8 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    updateEachCard(state) {
-      return !state.currProfileFollowed;
+    getUserLikes(state) {
+      return state.allLikes.filter((like) => like.userId === state.userId);
     },
   },
 });

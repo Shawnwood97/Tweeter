@@ -22,6 +22,12 @@ export default {
     tweetId: Number,
   },
 
+  computed: {
+    getUserLikes() {
+      return this.$store.getters.getUserLikes;
+    },
+  },
+
   methods: {
     likeTweet() {
       axios
@@ -73,30 +79,51 @@ export default {
   },
 
   mounted() {
-    axios
-      .request({
-        url: "https://tweeterest.ml/api/tweet-likes",
-        method: "GET",
-        headers: {
-          "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
-        },
-        params: {
-          tweetId: this.tweetId,
-        },
-      })
-      .then((res) => {
-        for (let i = 0; i < res.data.length; i++) {
-          if (res.data[i].userId === this.$store.state.userId) {
-            this.tweetLiked = true;
-          } else {
-            this.tweetLiked = false;
-          }
-        }
-        this.tweetLikes = res.data.length;
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
+    for (let i = 0; i < this.getUserLikes.length; i++) {
+      console.log(this.getUserLikes[i].userId);
+      if (
+        this.getUserLikes[i].userId === this.$store.state.userId &&
+        this.getUserLikes[i].tweetId === this.tweetId
+      ) {
+        this.tweetLiked = true;
+        break;
+      } else {
+        this.tweetLiked = false;
+      }
+    }
+
+    let counter = 0;
+    for (let i = 0; i < this.$store.state.allLikes.length; i++) {
+      if (this.$store.state.allLikes[i].tweetId === this.tweetId) {
+        counter++;
+      }
+    }
+    this.tweetLikes = counter;
+
+    //   axios
+    //     .request({
+    //       url: "https://tweeterest.ml/api/tweet-likes",
+    //       method: "GET",
+    //       headers: {
+    //         "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
+    //       },
+    //       params: {
+    //         tweetId: this.tweetId,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       for (let i = 0; i < res.data.length; i++) {
+    //         if (res.data[i].userId === this.$store.state.userId) {
+    //           this.tweetLiked = true;
+    //         } else {
+    //           this.tweetLiked = false;
+    //         }
+    //       }
+    //       this.tweetLikes = res.data.length;
+    //     })
+    //     .catch((err) => {
+    //       console.log(err.response);
+    //     });
   },
 };
 </script>
