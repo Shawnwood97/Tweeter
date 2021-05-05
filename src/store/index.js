@@ -54,6 +54,9 @@ export default new Vuex.Store({
     removeFollowedUser(state, data) {
       state.followedUsers.splice(data, 1);
     },
+    removeTweet(state, data) {
+      state.userTweets.splice(data, 1);
+    },
     setAllLikes(state, data) {
       state.allLikes = data;
     },

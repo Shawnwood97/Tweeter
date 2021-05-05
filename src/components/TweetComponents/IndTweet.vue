@@ -1,9 +1,21 @@
 <template>
   <div class="tweet">
-    <edit-tweet-button
-      v-if="tweetInfo.userId === $store.state.userId"
-      @click.native="enableEdit"
-    />
+    <div>
+      <button
+        id="editButton"
+        v-if="tweetInfo.userId === $store.state.userId"
+        @click="enableEdit"
+      >
+        Edit
+      </button>
+      <button
+        id="deleteButton"
+        v-if="tweetInfo.userId === $store.state.userId"
+        @click="deleteTweet"
+      >
+        Delete
+      </button>
+    </div>
     <h4>{{ tweetInfo.username }}</h4>
     <h5 v-if="!showEdit">{{ tweetInfo.content }}</h5>
     <div id="editSect" v-if="showEdit">
@@ -27,10 +39,10 @@
 
 <script>
 import axios from "axios";
-import EditTweetButton from "./editTweetButton.vue";
 import LikeButton from "./LikeButton.vue";
+
 export default {
-  components: { LikeButton, EditTweetButton },
+  components: { LikeButton },
   name: "ind-tweet",
 
   props: {
@@ -71,6 +83,35 @@ export default {
               this.$store.state.userTweets[i].content = document.getElementById(
                 "editInput"
               ).value;
+            }
+          }
+          this.showEdit = !this.showEdit;
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    },
+    deleteTweet() {
+      axios
+        .request({
+          url: "https://tweeterest.ml/api/tweets",
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
+          },
+          data: {
+            loginToken: this.$store.state.loginToken,
+            tweetId: this.tweetInfo.tweetId,
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+          for (let i = 0; i < this.$store.state.userTweets.length; i++) {
+            if (
+              this.$store.state.userTweets[i].tweetId === this.tweetInfo.tweetId
+            ) {
+              this.$store.commit("removeTweet", i);
             }
           }
           this.showEdit = !this.showEdit;
