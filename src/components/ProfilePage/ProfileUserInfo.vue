@@ -1,30 +1,31 @@
 <template>
   <section>
     <div v-if="userInfo !== null">
-      <div v-if="userInfo[0].userId === $store.state.userId">
+      <img class="bannerImg" :src="userInfo.bannerUrl" alt="" />
+      <div v-if="userInfo.userId === $store.state.userId">
         <router-link :to="{ name: 'edit-profile' }">Edit Profile</router-link>
       </div>
-      <img :src="displayPicture" alt="" />
+      <img class="profilePic" :src="userInfo.imageUrl" alt="" />
       <div>
         <h2>
-          {{ userInfo[0].username }}
+          {{ userInfo.username }}
         </h2>
         <profile-follow-button
-          v-if="userInfo[0].userId !== $store.state.userId"
-          :currentProfile="userInfo[0]"
+          v-if="userInfo.userId !== $store.state.userId"
+          :currentProfile="userInfo"
         />
       </div>
 
-      <p>{{ userInfo[0].email }}</p>
-      <p>{{ userInfo[0].bio }}</p>
-      <p>DOB: {{ userInfo[0].birthdate }}</p>
+      <p>{{ userInfo.email }}</p>
+      <p>{{ userInfo.bio }}</p>
+      <p>DOB: {{ userInfo.birthdate }}</p>
       <!-- <img :src="userInfo.imageUrl" alt="" /> -->
     </div>
   </section>
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import ProfileFollowButton from "./ProfileFollowButton.vue";
 export default {
   components: { ProfileFollowButton },
@@ -34,40 +35,51 @@ export default {
     return {
       userInfo: null,
       displayPicture: null,
+      allUsers: this.$store.state.allUsers,
     };
   },
 
   mounted() {
-    axios
-      .request({
-        url: "https://tweeterest.ml/api/users",
-        method: "GET",
-        headers: {
-          "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
-        },
-        params: {
-          userId: this.$route.params.id,
-        },
-      })
-      .then((res) => {
-        // console.log(res.data[0].imageUrl);
-        this.userInfo = res.data;
+    for (let i = 0; i < this.allUsers.length; i++) {
+      if (this.allUsers[i].userId === Number(this.$route.params.id)) {
+        this.userInfo = this.allUsers[i];
+        break;
+      }
+    }
 
-        if (!res.data[0].imageUrl) {
-          this.displayPicture = this.$store.state.defaultDisplayPic;
-        } else {
-          this.displayPicture = res.data[0].imageUrl;
-        }
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
+    //     axios
+    //       .request({
+    //         url: "https://tweeterest.ml/api/users",
+    //         method: "GET",
+    //         headers: {
+    //           "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
+    //         },
+    //         params: {
+    //           userId: this.$route.params.id,
+    //         },
+    //       })
+    //       .then((res) => {
+    //         // console.log(res.data[0].imageUrl);
+    //         this.userInfo = res.data;
+
+    //         if (!res.data[0].imageUrl) {
+    //           this.displayPicture = this.$store.state.defaultDisplayPic;
+    //         } else {
+    //           this.displayPicture = res.data[0].imageUrl;
+    //         }
+    //       })
+    //       .catch((err) => {
+    //         console.log(err.response);
+    //       });
   },
 };
 </script>
 
 <style lang="scss" scoped>
-img {
+.profilePic {
   width: 100px;
+}
+.bannerImg {
+  width: 100%;
 }
 </style>

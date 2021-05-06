@@ -16,6 +16,7 @@
         Delete
       </button>
     </div>
+    <img :src="`${tweetInfo.userImageUrl}`" />
     <h4>{{ tweetInfo.username }}</h4>
     <h5 v-if="!showEdit">{{ tweetInfo.content }}</h5>
     <div id="editSect" v-if="showEdit">
@@ -133,5 +134,9 @@ export default {
 .tweet {
   border: 1px solid #000;
   margin: 5px;
+
+  img {
+    width: 80px;
+  }
 }
 </style>

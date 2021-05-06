@@ -8,6 +8,7 @@ import profile from "@/views/Profile.vue";
 import users from "@/views/Users.vue";
 import tweets from "@/views/Tweets.vue";
 import editprofile from "@/views/EditProfile.vue";
+import discover from "@/views/Discover.vue";
 
 Vue.use(VueRouter);
 
@@ -32,6 +33,11 @@ const routes = [
     path: "/feed",
     name: "feed",
     component: feed,
+  },
+  {
+    path: "/discover",
+    name: "discover",
+    component: discover,
   },
   {
     path: "/users",
