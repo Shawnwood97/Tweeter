@@ -1,38 +1,38 @@
 <template>
   <div>
-    <button v-if="!tweetLiked" @click="likeTweet">+1</button>
-    <button v-else @click="unLikeTweet">-1</button>
-    <p class="likeCounter">{{ tweetLikes }}</p>
+    <button v-if="!commentLiked" @click="likeComment">+1</button>
+    <button v-else @click="unLikeComment">-1</button>
+    <p class="likeCounter">{{ commentLikes }}</p>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 export default {
-  name: "like-button",
+  name: "comment-like-button",
+
+  props: {
+    commentId: Number,
+  },
 
   data() {
     return {
-      tweetLiked: undefined,
-      tweetLikes: undefined,
+      commentLiked: undefined,
+      commentLikes: undefined,
     };
   },
 
-  props: {
-    tweetId: Number,
-  },
-
   computed: {
-    getUserLikes() {
+    getUserCommentLikes() {
       return this.$store.getters.getUserLikes;
     },
   },
 
   methods: {
-    likeTweet() {
+    likeComment() {
       axios
         .request({
-          url: "https://tweeterest.ml/api/tweet-likes",
+          url: "https://tweeterest.ml/api/comment-likes",
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -40,23 +40,23 @@ export default {
           },
           data: {
             loginToken: this.$store.state.loginToken,
-            tweetId: this.tweetId,
+            commentId: this.commentId,
           },
         })
         .then((res) => {
           console.log(res.data);
-          this.tweetLiked = true;
-          this.tweetLikes++;
+          this.commentLiked = true;
+          this.commentLikes++;
         })
         .catch((err) => {
           console.log(err.response);
         });
     },
 
-    unLikeTweet() {
+    unLikeComment() {
       axios
         .request({
-          url: "https://tweeterest.ml/api/tweet-likes",
+          url: "https://tweeterest.ml/api/comment-likes",
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -64,13 +64,13 @@ export default {
           },
           data: {
             loginToken: this.$store.state.loginToken,
-            tweetId: this.tweetId,
+            commentId: this.commentId,
           },
         })
         .then((res) => {
           console.log(res.data);
-          this.tweetLiked = false;
-          this.tweetLikes--;
+          this.commentLiked = false;
+          this.commentLikes--;
         })
         .catch((err) => {
           console.log(err.response);
@@ -79,23 +79,23 @@ export default {
   },
 
   mounted() {
-    for (let i = 0; i < this.getUserLikes.length; i++) {
+    for (let i = 0; i < this.getUserCommentLikes.length; i++) {
       // console.log(this.getUserLikes[i].userId);
-      if (this.getUserLikes[i].tweetId === this.tweetId) {
-        this.tweetLiked = true;
+      if (this.getUserCommentLikes[i].commentId === this.commentId) {
+        this.commentLiked = true;
         break;
       } else {
-        this.tweetLiked = false;
+        this.commentLiked = false;
       }
     }
 
     let counter = 0;
-    for (let i = 0; i < this.$store.state.allLikes.length; i++) {
-      if (this.$store.state.allLikes[i].tweetId === this.tweetId) {
+    for (let i = 0; i < this.$store.state.allCommentLikes.length; i++) {
+      if (this.$store.state.allCommentLikes[i].commentId === this.commentId) {
         counter++;
       }
     }
-    this.tweetLikes = counter;
+    this.commentLikes = counter;
   },
 };
 </script>

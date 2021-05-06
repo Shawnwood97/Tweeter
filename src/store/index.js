@@ -27,6 +27,8 @@ export default new Vuex.Store({
     tweetComments: [],
 
     allLikes: [],
+
+    allCommentLikes: [],
   },
   mutations: {
     setLoginToken(state, data) {
@@ -68,8 +70,8 @@ export default new Vuex.Store({
     setUserTweets(state, data) {
       state.userTweets = data;
     },
-    setComments(state, data) {
-      state.tweetComments = data;
+    setAllCommentLikes(state, data) {
+      state.allCommentLikes = data;
     },
   },
   actions: {
@@ -160,26 +162,6 @@ export default new Vuex.Store({
           console.log(err.response);
         });
     },
-    // getUserTweets(context) {
-    //   axios
-    //     .request({
-    //       url: "https://tweeterest.ml/api/tweets",
-    //       method: "GET",
-    //       headers: {
-    //         "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
-    //       },
-    //       params: {
-    //         userId: context.state.userId,
-    //       },
-    //     })
-    //     .then((res) => {
-    //       context.commit("setUserTweets", res.data.reverse());
-    //       context.dispatch("getAllLikes");
-    //     })
-    //     .catch((err) => {
-    //       console.log(err.response);
-    //     });
-    // },
     getAllLikes(context) {
       axios
         .request({
@@ -191,15 +173,24 @@ export default new Vuex.Store({
         })
         .then((res) => {
           context.commit("setAllLikes", res.data);
+          context.dispatch("getAllCommentLikes");
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    },
+    getAllCommentLikes(context) {
+      axios
+        .request({
+          url: "https://tweeterest.ml/api/comment-likes",
+          method: "GET",
+          headers: {
+            "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
+          },
+        })
+        .then((res) => {
+          context.commit("setAllCommentLikes", res.data);
           context.commit("setInitComplete", true);
-          // for (let i = 0; i < res.data.length; i++) {
-          //   if (res.data[i].userId === this.$store.state.userId) {
-          //     this.tweetLiked = true;
-          //   } else {
-          //     this.tweetLiked = false;
-          //   }
-          // }
-          // this.tweetLikes = res.data.length;
         })
         .catch((err) => {
           console.log(err.response);
@@ -209,6 +200,11 @@ export default new Vuex.Store({
   getters: {
     getUserLikes(state) {
       return state.allLikes.filter((like) => like.userId === state.userId);
+    },
+    getUserCommentLikes(state) {
+      return state.allCommentLikes.filter(
+        (like) => like.userId === state.userId
+      );
     },
   },
 });

@@ -9,7 +9,7 @@
       <input type="submit" value="Submit" @click="postComment" />
     </form>
     <ind-comment
-      v-for="comment in tweetComments.reverse()"
+      v-for="comment in tweetComments"
       :key="comment.commentId"
       :commentInfo="comment"
     />
@@ -57,7 +57,7 @@ export default {
         })
         .then((res) => {
           console.log(res.data);
-          this.tweetComments.push(res.data);
+          this.tweetComments.unshift(res.data);
           this.showComment = !this.showComment;
         })
         .catch((err) => {
@@ -80,7 +80,7 @@ export default {
       })
       .then((res) => {
         console.log(res.data);
-        this.tweetComments = res.data;
+        this.tweetComments = res.data.reverse();
       })
       .catch((err) => {
         console.log(err.response);

@@ -119,7 +119,7 @@ export default {
               this.$store.commit("removeTweet", i);
             }
           }
-          this.showEdit = !this.showEdit;
+          // this.showEdit = !this.showEdit;
         })
         .catch((err) => {
           console.log(err.response);
