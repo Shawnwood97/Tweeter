@@ -24,6 +24,8 @@ export default new Vuex.Store({
 
     userTweets: [],
 
+    tweetComments: [],
+
     allLikes: [],
   },
   mutations: {
@@ -65,6 +67,9 @@ export default new Vuex.Store({
     },
     setUserTweets(state, data) {
       state.userTweets = data;
+    },
+    setComments(state, data) {
+      state.tweetComments = data;
     },
   },
   actions: {
@@ -108,7 +113,6 @@ export default new Vuex.Store({
           console.log(err.response);
         });
     },
-
     logOut(context) {
       axios
         .request({
@@ -148,7 +152,7 @@ export default new Vuex.Store({
         .then((res) => {
           console.log(res.data);
           context.commit("setFollowedUsers", res.data);
-          context.dispatch("getUserTweets");
+          context.dispatch("getAllLikes");
 
           // console.log(context.state.followedUsers);
         })
@@ -156,26 +160,26 @@ export default new Vuex.Store({
           console.log(err.response);
         });
     },
-    getUserTweets(context) {
-      axios
-        .request({
-          url: "https://tweeterest.ml/api/tweets",
-          method: "GET",
-          headers: {
-            "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
-          },
-          params: {
-            userId: context.state.userId,
-          },
-        })
-        .then((res) => {
-          context.commit("setUserTweets", res.data.reverse());
-          context.dispatch("getAllLikes");
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
-    },
+    // getUserTweets(context) {
+    //   axios
+    //     .request({
+    //       url: "https://tweeterest.ml/api/tweets",
+    //       method: "GET",
+    //       headers: {
+    //         "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
+    //       },
+    //       params: {
+    //         userId: context.state.userId,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       context.commit("setUserTweets", res.data.reverse());
+    //       context.dispatch("getAllLikes");
+    //     })
+    //     .catch((err) => {
+    //       console.log(err.response);
+    //     });
+    // },
     getAllLikes(context) {
       axios
         .request({

@@ -34,6 +34,7 @@
       v-if="this.$store.state.loginToken"
       :tweetId="tweetInfo.tweetId"
     />
+    <comment-list :tweetInfo="tweetInfo" />
   </div>
 </template>
 
@@ -41,8 +42,10 @@
 import axios from "axios";
 import LikeButton from "./LikeButton.vue";
 
+import CommentList from "../Comments/CommentList.vue";
+
 export default {
-  components: { LikeButton },
+  components: { LikeButton, CommentList },
   name: "ind-tweet",
 
   props: {
@@ -52,6 +55,8 @@ export default {
   data() {
     return {
       showEdit: false,
+
+      newComment: [],
     };
   },
   methods: {

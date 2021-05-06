@@ -2,7 +2,7 @@
   <div v-if="!initComplete" id="loading">Loading Site Assets</div>
   <div v-else id="app">
     <button @click="logoutUser">Logout</button>
-    <router-view />
+    <router-view :key="$route.fullPath" />
   </div>
 </template>
 
