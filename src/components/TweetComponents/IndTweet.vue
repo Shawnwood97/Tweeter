@@ -17,7 +17,14 @@
       </button>
     </div>
     <img :src="`${tweetInfo.userImageUrl}`" />
-    <h4>{{ tweetInfo.username }}</h4>
+    <router-link
+      :to="{
+        name: 'profile',
+        params: { id: tweetInfo.userId },
+      }"
+    >
+      <h4>{{ tweetInfo.username }}</h4></router-link
+    >
     <h5 v-if="!showEdit">{{ tweetInfo.content }}</h5>
     <div id="editSect" v-if="showEdit">
       <form action="javascript:void(0)">

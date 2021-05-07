@@ -223,6 +223,13 @@ export default new Vuex.Store({
         })
         .then((res) => {
           context.commit("setAllTweets", res.data);
+
+          for (let i = 0; i < this.state.allTweets.length; i++) {
+            if (this.state.allTweets[i].userImageUrl === null) {
+              this.state.allTweets[i].userImageUrl =
+                "https://lh3.googleusercontent.com/XJGWUivcvCXmMrSQnUzD7WKHsoasrtYYu3dnWVgKjW0ulBvzYVdl4p0YPV85ZeqhD5WFho7o2BysQ8rxSZNH7rfGYUYKUaqofnxvwEc6nWYiFexONmr-K_i1hCYgubRp-fj-q7YSRlqIK0NvoDs-bTrOTSL7kKkRC2Ay5NNWYV6TzA3WucL8reE71oMFMupMqtEWR1pa37Y3MovWpVTfHmPV6znfQ57inAfd58ATiOkzPhdQQBl2eViexJCaVtsNn9rn0tcAKYoVPp8VxuNSC_6AubY735xqTURFfqN9AnL5CH5SKoFDMOceaf2LriezvaUTF3ghqxMlZ95dE5pTCT1kNSKbPO-ereGcURQbZ1Xq5SVXurlvUs-p1Tiu4j1UFKOF-pD1iSoFX8oMB2eBQfBxinLP_tGf8t0CpzGR1UG9IC-RZEvh5ZOl058Ejdg1EHG5SNjGRhHrkm_rKxekch1NNs1qSRNqidjuBUZQhSdmGTdJqa79Z6kneec_MTJesShlGOAi3Mp1xwU02QSvUyM8Vufw-NIEbseX1qmbA7dhaUEkLK8o5G3AdB9hA7mHvpaE05_4jSU3n6gewvQnFwHcGNYFUX_RduNVtpIUbb_oD4m3A3QDTfsnWhqdH0YkdtKnz_BdjzkR4VasDOfoj6OHO-_gVHr-WWVbDuqLqn_2ErMxqSE4AQ0kUaTVlQ18_2u0aq470ch1aHDXtXJPSRS0=s300-no?authuser=0";
+            }
+          }
           context.commit("setInitComplete", true);
         })
         .catch((err) => {
@@ -241,6 +248,15 @@ export default new Vuex.Store({
     },
     randTweets(state) {
       return state.allTweets.sort(() => Math.random() - 0.5);
+    },
+    followedUsersTweets(state) {
+      let tweets = [];
+      state.followedUsers.forEach((user) => {
+        state.allTweets.forEach((tweet) => {
+          if (user.userId === tweet.userId) tweets.push(tweet);
+        });
+      });
+      return tweets.sort((a, b) => b.tweetId - a.tweetId);
     },
   },
 });

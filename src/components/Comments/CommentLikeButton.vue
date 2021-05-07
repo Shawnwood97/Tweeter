@@ -24,7 +24,7 @@ export default {
 
   computed: {
     getUserCommentLikes() {
-      return this.$store.getters.getUserLikes;
+      return this.$store.getters.getUserCommentLikes;
     },
   },
 

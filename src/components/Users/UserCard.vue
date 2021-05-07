@@ -1,6 +1,7 @@
 <template>
   <div>
     <article>
+      <img class="profileImage" :src="user.imageUrl" />
       <router-link
         :to="{
           name: 'profile',
@@ -40,5 +41,9 @@ export default {
 article {
   border: 1px solid #000;
   margin: 5px;
+
+  .profileImage {
+    width: 80px;
+  }
 }
 </style>

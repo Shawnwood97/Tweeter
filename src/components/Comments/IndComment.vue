@@ -16,9 +16,16 @@
         Delete
       </button>
     </div>
-    <h4>{{ indCommentInfo.username }}</h4>
-    <p class="comment">{{ indCommentInfo.content }}</p>
-    <div id="editSect" v-if="showCommentEdit">
+    <router-link
+      :to="{
+        name: 'profile',
+        params: { id: indCommentInfo.userId },
+      }"
+    >
+      <h4>{{ indCommentInfo.username }}</h4></router-link
+    >
+    <p class="comment" v-if="!showCommentEdit">{{ indCommentInfo.content }}</p>
+    <div id="editSect" v-else>
       <form action="javascript:void(0)">
         <input
           type="text"

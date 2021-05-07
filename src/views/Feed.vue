@@ -6,12 +6,29 @@
         Send Tweet
       </button>
     </div>
+    <ind-tweet
+      v-for="tweet in getFollowedTweets"
+      :key="tweet.tweetId"
+      :tweetInfo="tweet"
+    />
   </div>
 </template>
 
 <script>
+import IndTweet from "../components/TweetComponents/IndTweet.vue";
 export default {
+  components: { IndTweet },
   name: "feed",
+
+  computed: {
+    getFollowedTweets() {
+      return this.$store.getters.followedUsersTweets;
+    },
+  },
+
+  // mounted() {
+  //   console.log(this.getFollowedTweets);
+  // },
 };
 </script>
 
