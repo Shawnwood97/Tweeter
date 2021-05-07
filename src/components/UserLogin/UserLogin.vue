@@ -48,9 +48,11 @@ export default {
           if (res.data.loginToken !== undefined) {
             cookies.set("loginToken", res.data.loginToken);
             cookies.set("userId", res.data.userId);
+            this.$store.commit("setInitComplete", false);
             this.$store.commit("setLoginToken", res.data.loginToken);
             this.$store.commit("setUserId", res.data.userId);
             this.$store.commit("setUsername", res.data.username);
+            this.$store.dispatch("checkLoggedIn");
           } else {
             this.$store.commit("setLoginToken", null);
           }
