@@ -1,14 +1,16 @@
 <template>
-  <div v-if="!initComplete" id="loading">Loading Site Assets</div>
+  <div v-if="!$store.state.initComplete" id="loading">Loading Site Assets</div>
   <div v-else id="app">
-    <button @click="logoutUser">Logout</button>
+    <page-header />
     <router-view :key="$route.fullPath" />
   </div>
 </template>
 
 <script>
 import cookies from "vue-cookies";
+import PageHeader from "./components/HeaderComponent/PageHeader.vue";
 export default {
+  components: { PageHeader },
   data() {
     return {
       userIdCookie: cookies.get("userId"),
@@ -19,12 +21,6 @@ export default {
   computed: {
     initComplete() {
       return this.$store.state.initComplete;
-    },
-  },
-
-  methods: {
-    logoutUser() {
-      this.$store.dispatch("logOut");
     },
   },
 
@@ -43,6 +39,11 @@ export default {
 </script>
 
 <style lang="scss">
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -46,31 +46,6 @@ export default {
         break;
       }
     }
-
-    //     axios
-    //       .request({
-    //         url: "https://tweeterest.ml/api/users",
-    //         method: "GET",
-    //         headers: {
-    //           "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
-    //         },
-    //         params: {
-    //           userId: this.$route.params.id,
-    //         },
-    //       })
-    //       .then((res) => {
-    //         // console.log(res.data[0].imageUrl);
-    //         this.userInfo = res.data;
-
-    //         if (!res.data[0].imageUrl) {
-    //           this.displayPicture = this.$store.state.defaultDisplayPic;
-    //         } else {
-    //           this.displayPicture = res.data[0].imageUrl;
-    //         }
-    //       })
-    //       .catch((err) => {
-    //         console.log(err.response);
-    //       });
   },
 };
 </script>

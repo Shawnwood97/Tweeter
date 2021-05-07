@@ -11,7 +11,9 @@ export default {
   name: "users",
 
   mounted() {
-    return this.$store.dispatch("getUsers");
+    if (this.$store.state.loginToken) {
+      return this.$store.dispatch("getUsers");
+    }
   },
 
   computed: {

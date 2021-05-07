@@ -15,7 +15,8 @@
       </div>
     </form>
     <p>
-      Not Registered? <span @click="navToRegister">Click Here</span> To
+      Not Registered?
+      <router-link :to="{ name: 'register' }">Click Here</router-link> To
       Register!
     </p>
   </div>
@@ -29,10 +30,6 @@ export default {
   name: "user-login",
 
   methods: {
-    navToRegister() {
-      this.$router.push("register");
-    },
-
     logIn() {
       axios
         .request({

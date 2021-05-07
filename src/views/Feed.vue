@@ -1,11 +1,7 @@
 <template>
   <div>
     <h1>Hey {{ $store.state.username }}, This is your feed</h1>
-    <div>
-      <input type="text" placeholder="Create A Tweet" /><button>
-        Send Tweet
-      </button>
-    </div>
+    <create-tweet v-if="$store.state.userId" />
     <ind-tweet
       v-for="tweet in getFollowedTweets"
       :key="tweet.tweetId"
@@ -15,9 +11,11 @@
 </template>
 
 <script>
+import CreateTweet from "../components/TweetComponents/CreateTweet.vue";
 import IndTweet from "../components/TweetComponents/IndTweet.vue";
+
 export default {
-  components: { IndTweet },
+  components: { IndTweet, CreateTweet },
   name: "feed",
 
   computed: {
@@ -25,10 +23,6 @@ export default {
       return this.$store.getters.followedUsersTweets;
     },
   },
-
-  // mounted() {
-  //   console.log(this.getFollowedTweets);
-  // },
 };
 </script>
 

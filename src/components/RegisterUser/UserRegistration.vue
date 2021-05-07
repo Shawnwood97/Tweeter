@@ -40,7 +40,8 @@
       </div>
     </form>
     <p>
-      Already Registered? <span @click="showLogin">Click Here</span> To Login!
+      Already Registered?
+      <router-link :to="{ name: 'login' }">Click Here</router-link> To Login!
     </p>
   </main>
   <already-registered v-else-if="loginToken" />
@@ -60,9 +61,6 @@ export default {
     };
   },
   methods: {
-    showLogin() {
-      return this.$store.commit("regToggle", false);
-    },
     registerUser() {
       axios
         .request({

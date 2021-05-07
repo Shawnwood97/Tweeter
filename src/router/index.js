@@ -18,7 +18,6 @@ const routes = [
     name: "Home",
     component: Home,
   },
-
   {
     path: "/login",
     name: "login",
@@ -59,7 +58,6 @@ const routes = [
     path: "/edit-profile",
     name: "edit-profile",
     component: editprofile,
-    props: true,
   },
 ];
 
