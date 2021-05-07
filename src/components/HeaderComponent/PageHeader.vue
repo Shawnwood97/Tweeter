@@ -1,10 +1,11 @@
 <template>
   <div>
-    <header v-if="!$store.state.loginToken">
+    <!-- <header v-if="!$store.state.loginToken">
       <button @click="navToLogin">Login</button>
       <button @click="navToRegister">Sign Up</button>
-    </header>
-    <header v-else-if="$store.state.loginToken && userInfo">
+    </header> -->
+    <!-- <header v-else-if="$store.state.loginToken && userInfo"> -->
+    <header>
       <router-link :to="{ path: `/users/${userInfo.userId}` }"
         ><img :src="userInfo.imageUrl" />
       </router-link>

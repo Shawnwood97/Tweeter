@@ -1,0 +1,51 @@
+// Colors
+
+$mainColor: #20242A;
+$secColor: #2B3038;
+
+// Text/Link Colors
+
+$mainText: #FFFFFF;
+$secText: #8FC2DE;
+$mainLink: #03d8f4;
+
+// Fonts
+
+$lato : 'Lato',
+sans-serif;
+$roboto: 'Roboto',
+sans-serif;
+
+// Button Mixins
+
+@mixin mainBtn {
+  background: $mainLink;
+  border: none;
+  padding: 15px 50px;
+  border-radius: 5px;
+  color: #000;
+  font-weight: bold;
+  font-size: 1rem;
+
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.6) 0px 6px 12px -2px, rgba(0, 0, 0, 0.6) 0px 3px 7px -3px;
+    cursor: pointer;
+  }
+}
+
+@mixin secBtn {
+  color: $mainText;
+  background: transparent;
+  border: 2px solid $mainLink;
+  padding: 15px 50px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1rem;
+
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.6) 0px 6px 12px -2px, rgba(0, 0, 0, 0.6) 0px 3px 7px -3px;
+    cursor: pointer;
+    background: $mainLink;
+    color: #000;
+  }
+}

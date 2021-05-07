@@ -1,16 +1,18 @@
 <template>
   <div v-if="!$store.state.initComplete" id="loading">Loading Site Assets</div>
   <div v-else id="app">
-    <page-header />
+    <page-header v-if="$store.state.loginToken" />
     <router-view :key="$route.fullPath" />
+    <mobile-nav v-if="$store.state.loginToken" />
   </div>
 </template>
 
 <script>
 import cookies from "vue-cookies";
 import PageHeader from "./components/HeaderComponent/PageHeader.vue";
+import MobileNav from "./components/MobileComponents/MobileNav.vue";
 export default {
-  components: { PageHeader },
+  components: { PageHeader, MobileNav },
   data() {
     return {
       userIdCookie: cookies.get("userId"),
@@ -39,29 +41,15 @@ export default {
 </script>
 
 <style lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Roboto:wght@400;700&display=swap");
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: $roboto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
 </style>
