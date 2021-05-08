@@ -4,7 +4,12 @@
       ><img :src="userInfo.imageUrl" />
     </router-link>
     <h4>{{ userInfo.username }}</h4>
-    <button id="logoutBtn" @click="logoutUser">Logout</button>
+    <font-awesome-icon
+      class="tweetIcon"
+      :icon="['fas', 'sign-out-alt']"
+      id="logoutBtn"
+      @click="logoutUser"
+    />
   </header>
 </template>
 
@@ -40,16 +45,19 @@ header {
   display: grid;
   grid-template-columns: auto 1fr auto;
   place-items: center;
-  height: 5vh;
+  height: 6vh;
   position: fixed;
   top: 0;
-  background: #000;
+  background: $mainColor;
+  box-shadow: $bsMain;
+  padding: 0 10px;
   width: 100%;
 
   img {
     width: 40px;
     border-radius: 50%;
-    border: 2px solid #000;
+    border: 2px solid $secColor;
+    margin-top: 3px;
   }
 
   #logoutBtn {

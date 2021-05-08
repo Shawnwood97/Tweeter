@@ -7,7 +7,7 @@
       rows="1"
       :minHeight="20"
     />
-    <button @click="createTweet">Send</button>
+    <button @click="createTweet">Send Tweet</button>
   </div>
 </template>
 
@@ -50,7 +50,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#tweetContent {
-  width: 80%;
+div {
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  margin-top: 10px;
+
+  #tweetContent {
+    @include inputOne;
+    padding: 5px;
+    width: 96%;
+    font-size: 1.2rem;
+    justify-self: center;
+  }
+
+  button {
+    @include mainBtn;
+    place-self: center end;
+    margin-right: 8px;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+  }
 }
 </style>

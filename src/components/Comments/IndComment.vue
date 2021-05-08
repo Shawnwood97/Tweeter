@@ -1,37 +1,22 @@
 <template>
-  <div class="commentContainer">
-    <div>
-      <button
-        id="commentEditButton"
-        v-if="indCommentInfo.userId === $store.state.userId"
-        @click="enableCommentEdit"
+  <div class="commentContainer" v-if="commentToggle">
+    <div class="userTimeGrid">
+      <router-link
+        :to="{
+          name: 'profile',
+          params: { id: indCommentInfo.userId },
+        }"
       >
-        Edit
-      </button>
-      <button
-        id="commentDeleteButton"
-        v-if="indCommentInfo.userId === $store.state.userId"
-        @click="deleteComment"
+        <h4>{{ indCommentInfo.username }}</h4></router-link
       >
-        Delete
-      </button>
+
+      <p class="commentTime">{{ indCommentInfo.createdAt }}</p>
     </div>
-    <router-link
-      :to="{
-        name: 'profile',
-        params: { id: indCommentInfo.userId },
-      }"
-    >
-      <h4>{{ indCommentInfo.username }}</h4></router-link
-    >
-    <p class="comment" v-if="!showCommentEdit">{{ indCommentInfo.content }}</p>
+    <p class="commentContent" v-if="!showCommentEdit">
+      {{ indCommentInfo.content }}
+    </p>
     <div id="editSect" v-else>
       <form action="javascript:void(0)">
-        <!-- <input
-          type="text"
-          :value="indCommentInfo.content"
-          id="editCommentInput"
-        /> -->
         <textarea-autosize
           id="editCommentInput"
           placeholder="Enter Comment"
@@ -47,12 +32,28 @@
         />
       </form>
     </div>
-    <p class="commentTime">{{ indCommentInfo.createdAt }}</p>
+    <hr />
+    <div class="commentIconRow">
+      <comment-like-button
+        v-if="this.$store.state.loginToken && indCommentInfo.commentId"
+        :commentId="indCommentInfo.commentId"
+      />
+      <font-awesome-icon
+        class="commentIcon"
+        :icon="['fas', 'edit']"
+        id="commentEditButton"
+        v-if="indCommentInfo.userId === $store.state.userId"
+        @click="enableCommentEdit"
+      />
 
-    <comment-like-button
-      v-if="this.$store.state.loginToken && indCommentInfo.commentId"
-      :commentId="indCommentInfo.commentId"
-    />
+      <font-awesome-icon
+        class="commentIcon"
+        :icon="['fas', 'trash-alt']"
+        id="commentDeleteButton"
+        v-if="indCommentInfo.userId === $store.state.userId"
+        @click="deleteComment"
+      />
+    </div>
   </div>
 </template>
 
@@ -71,6 +72,7 @@ export default {
     return {
       showCommentEdit: false,
       indCommentInfo: this.commentInfo,
+      commentToggle: true,
     };
   },
 
@@ -101,6 +103,12 @@ export default {
               "editCommentInput"
             ).value;
           }
+
+          for (let i = 0; i < this.$store.getters.randTweets.length; i++) {
+            this.indCommentInfo.content = document.getElementById(
+              "editCommentInput"
+            ).value;
+          }
           this.showCommentEdit = !this.showCommentEdit;
         })
         .catch((err) => {
@@ -123,7 +131,8 @@ export default {
         })
         .then((res) => {
           console.log(res.data);
-          this.indCommentInfo = {};
+          this.indCommentInfo = [];
+          this.commentToggle = false;
         })
         .catch((err) => {
           console.log(err.response);
@@ -135,7 +144,74 @@ export default {
 
 <style lang="scss" scoped>
 .commentContainer {
-  border: 1px solid black;
+  background: $mainColor;
+  border-radius: 5px;
+  box-shadow: $bsMain;
   margin: 5px;
+  padding: 5px;
+
+  .commentContent {
+    font-size: 1rem;
+    font-family: $lato;
+    margin: 10px 0;
+  }
+
+  .userTimeGrid {
+    display: grid;
+    grid-auto-flow: column;
+    margin-top: 5px;
+    align-items: center;
+
+    h4 {
+      place-self: center;
+    }
+
+    p {
+      place-self: center end;
+      color: $altText;
+      font-size: 0.8rem;
+    }
+  }
+
+  hr {
+    border: 1px solid $secColor;
+    margin: 10px 0;
+  }
+
+  .commentIconRow {
+    display: grid;
+    grid-auto-flow: column;
+    place-items: center;
+    .commentIcon {
+      font-size: 1.4rem;
+
+      path {
+        fill: $altText;
+      }
+    }
+  }
+
+  #editSect {
+    margin: 10px;
+    form {
+      display: grid;
+      gap: 10px;
+
+      #editCommentInput {
+        @include inputOne;
+        padding: 5px;
+        width: 100%;
+        font-size: 1.2rem;
+        place-self: center;
+        font-weight: 400;
+      }
+      input[type="submit"] {
+        @include mainBtn;
+        padding: 5px 10px;
+        font-size: 0.9rem;
+        place-self: end;
+      }
+    }
+  }
 }
 </style>

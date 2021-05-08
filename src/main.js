@@ -4,12 +4,28 @@ import router from "./router";
 import store from "./store";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faSpinner, faSyncAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSpinner,
+  faSyncAlt,
+  faCommentDots,
+  faHeart,
+  faEdit,
+  faTrashAlt,
+  faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 import TextareaAutosize from "vue-textarea-autosize";
 
-library.add(faSpinner, faSyncAlt);
+library.add(
+  faSpinner,
+  faSyncAlt,
+  faCommentDots,
+  faHeart,
+  faEdit,
+  faTrashAlt,
+  faSignOutAlt
+);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.use(TextareaAutosize);

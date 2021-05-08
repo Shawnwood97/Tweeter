@@ -1,9 +1,37 @@
 <template>
   <nav>
-    <button>Profile</button>
-    <button>Feed</button>
-    <button>Discover</button>
-    <button>Users</button>
+    <button>
+      <router-link
+        :to="{
+          path: `/users/${this.$store.state.userId}`,
+        }"
+        >Profile</router-link
+      >
+    </button>
+    <button>
+      <router-link
+        :to="{
+          name: 'feed',
+        }"
+        >Feed</router-link
+      >
+    </button>
+    <button>
+      <router-link
+        :to="{
+          name: 'discover',
+        }"
+        >Discover</router-link
+      >
+    </button>
+    <button>
+      <router-link
+        :to="{
+          name: 'users',
+        }"
+        >Users</router-link
+      >
+    </button>
   </nav>
 </template>
 
@@ -20,10 +48,12 @@ nav {
   position: fixed;
   bottom: 0;
   place-items: center;
+  place-self: center;
   width: 100%;
   height: 6vh;
-  border: 1px solid #000;
-  background: #000;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 1);
+  background: $secColor;
+
   z-index: 9999;
 }
 </style>

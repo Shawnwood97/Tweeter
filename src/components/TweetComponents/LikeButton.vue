@@ -1,8 +1,19 @@
 <template>
   <div>
-    <button v-if="!tweetLiked" @click="likeTweet">+1</button>
-    <button v-else @click="unLikeTweet">-1</button>
-    <p class="likeCounter">{{ tweetLikes }}</p>
+    <font-awesome-icon
+      class="tweetIcon"
+      :icon="['fas', 'heart']"
+      v-if="!tweetLiked"
+      @click="likeTweet"
+    />
+    <font-awesome-icon
+      class="likedTweet tweetIcon"
+      :icon="['fas', 'heart']"
+      v-else
+      @click="unLikeTweet"
+    />
+    <p v-if="!tweetLiked">{{ tweetLikes }}</p>
+    <p class="likedCounter" v-else>{{ tweetLikes }}</p>
   </div>
 </template>
 
@@ -100,4 +111,30 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+div {
+  display: grid;
+  grid-auto-flow: column;
+  width: 60px;
+  place-items: center;
+}
+
+p {
+  color: $altText;
+}
+.tweetIcon {
+  font-size: 1.5rem;
+
+  path {
+    fill: $altText;
+  }
+}
+.likedTweet path {
+  fill: #ff2121;
+}
+
+.likedCounter {
+  color: #ff2121;
+  font-weight: bold;
+}
+</style>

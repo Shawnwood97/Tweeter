@@ -5,7 +5,7 @@
     id="loggedInApp"
   >
     <page-header v-if="$store.state.loginToken" />
-    <router-view :key="$route.fullPath" />
+    <router-view id="loggedInRouter" :key="$route.fullPath" />
     <mobile-nav v-if="$store.state.loginToken" />
   </div>
   <div v-else id="app">
@@ -66,7 +66,12 @@ export default {
 }
 #loggedInApp {
   margin-bottom: 6vh;
-  margin-top: 5vh;
+  margin-top: 6vh;
+  padding: 5px 0;
+}
+
+#loggedInRouter {
+  min-height: 89vh;
 }
 
 a {
@@ -132,5 +137,9 @@ a {
     margin-top: 15px;
     text-align: center;
   }
+}
+
+button {
+  color: #000;
 }
 </style>

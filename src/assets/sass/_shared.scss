@@ -7,14 +7,19 @@ $secColor: #2B3038;
 
 $mainText: #FFFFFF;
 $secText: #8FC2DE;
+$altText: #9A9A9A;
 $mainLink: #03d8f4;
 
 // Fonts
 
-$lato : 'Lato',
+$lato: 'Lato',
 sans-serif;
 $roboto: 'Roboto',
 sans-serif;
+
+// Box Shadow
+
+$bsMain: 0 0 2px 1px rgba(29, 31, 33, 1);
 
 // Button Mixins
 
@@ -59,6 +64,7 @@ sans-serif;
   border: 1px solid transparent;
   font-size: 1rem;
   font-weight: bold;
+  box-shadow: $bsMain;
 
   &:active,
   &:focus {

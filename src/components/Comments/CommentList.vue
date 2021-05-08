@@ -1,10 +1,10 @@
 <template>
   <div>
-    <comment-button
+    <!-- <comment-button
       v-if="this.$store.state.loginToken"
       @click.native="enableComment"
-    />
-    <form v-if="showComment" action="javascript:void(0)">
+    /> -->
+    <!-- <form v-if="showComment" action="javascript:void(0)">
       <textarea-autosize
         id="commentInput"
         placeholder="Enter Comment"
@@ -12,7 +12,7 @@
         :minHeight="20"
       />
       <input type="submit" value="Submit" @click="postComment" />
-    </form>
+    </form> -->
     <ind-comment
       v-for="comment in tweetComments"
       :key="comment.commentId"
@@ -24,9 +24,9 @@
 <script>
 import axios from "axios";
 import IndComment from "./IndComment.vue";
-import CommentButton from "../TweetComponents/CommentButton.vue";
+// import CommentButton from "../TweetComponents/CommentButton.vue";
 export default {
-  components: { IndComment, CommentButton },
+  components: { IndComment },
   name: "comment-list",
 
   data() {
@@ -41,35 +41,35 @@ export default {
     newComment: Object,
   },
 
-  methods: {
-    enableComment() {
-      this.showComment = !this.showComment;
-    },
-    postComment() {
-      axios
-        .request({
-          url: "https://tweeterest.ml/api/comments",
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
-          },
-          data: {
-            loginToken: this.$store.state.loginToken,
-            tweetId: this.tweetInfo.tweetId,
-            content: document.getElementById("commentInput").value,
-          },
-        })
-        .then((res) => {
-          console.log(res.data);
-          this.tweetComments.unshift(res.data);
-          this.showComment = !this.showComment;
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
-    },
-  },
+  // methods: {
+  //   enableComment() {
+  //     this.showComment = !this.showComment;
+  //   },
+  //   postComment() {
+  //     axios
+  //       .request({
+  //         url: "https://tweeterest.ml/api/comments",
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
+  //         },
+  //         data: {
+  //           loginToken: this.$store.state.loginToken,
+  //           tweetId: this.tweetInfo.tweetId,
+  //           content: document.getElementById("commentInput").value,
+  //         },
+  //       })
+  //       .then((res) => {
+  //         console.log(res.data);
+  //         this.tweetComments.unshift(res.data);
+  //         this.showComment = !this.showComment;
+  //       })
+  //       .catch((err) => {
+  //         console.log(err.response);
+  //       });
+  //   },
+  // },
 
   mounted() {
     axios

@@ -1,8 +1,20 @@
 <template>
   <div>
-    <button v-if="!commentLiked" @click="likeComment">+1</button>
-    <button v-else @click="unLikeComment">-1</button>
-    <p class="likeCounter">{{ commentLikes }}</p>
+    <font-awesome-icon
+      class="commentIcon"
+      :icon="['fas', 'heart']"
+      v-if="!commentLiked"
+      @click="likeComment"
+    />
+    <font-awesome-icon
+      class="commentIcon likedComment"
+      :icon="['fas', 'heart']"
+      n
+      v-else
+      @click="unLikeComment"
+    />
+    <p v-if="!commentLiked">{{ commentLikes }}</p>
+    <p class="likedCounter" v-else>{{ commentLikes }}</p>
   </div>
 </template>
 
@@ -100,4 +112,30 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+div {
+  display: grid;
+  grid-auto-flow: column;
+  width: 45px;
+  place-items: center;
+}
+
+p {
+  color: $altText;
+}
+.commentIcon {
+  font-size: 1.4rem;
+
+  path {
+    fill: $altText;
+  }
+}
+.likedComment path {
+  fill: #ff2121;
+}
+
+.likedCounter {
+  color: #ff2121;
+  font-weight: bold;
+}
+</style>

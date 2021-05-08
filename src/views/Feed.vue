@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <h1>Hey {{ $store.state.username }}, This is your feed</h1>
+  <main>
+    <!-- <h1>Hey {{ $store.state.username }}, This is your feed</h1> -->
     <create-tweet v-if="$store.state.userId" />
     <ind-tweet
       v-for="tweet in getFollowedTweets"
       :key="tweet.tweetId"
       :tweetInfo="tweet"
     />
-  </div>
+  </main>
 </template>
 
 <script>
@@ -26,4 +26,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+main {
+  display: grid;
+}
+</style>
