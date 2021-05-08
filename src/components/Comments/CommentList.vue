@@ -5,7 +5,12 @@
       @click.native="enableComment"
     />
     <form v-if="showComment" action="javascript:void(0)">
-      <input id="commentInput" type="text" />
+      <textarea-autosize
+        id="commentInput"
+        placeholder="Enter Comment"
+        rows="1"
+        :minHeight="20"
+      />
       <input type="submit" value="Submit" @click="postComment" />
     </form>
     <ind-comment

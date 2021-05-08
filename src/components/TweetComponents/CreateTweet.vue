@@ -1,7 +1,12 @@
 <template>
   <div>
     <h3>Publish A Tweet</h3>
-    <input id="tweetContent" type="text" placeholder="Enter Tweet" />
+    <textarea-autosize
+      id="tweetContent"
+      placeholder="Enter Tweet"
+      rows="1"
+      :minHeight="20"
+    />
     <button @click="createTweet">Send</button>
   </div>
 </template>
@@ -44,4 +49,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#tweetContent {
+  width: 80%;
+}
+</style>

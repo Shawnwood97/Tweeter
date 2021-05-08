@@ -22,6 +22,12 @@
 export default {
   name: "home",
 
+  mounted() {
+    if (this.$store.state.loginToken) {
+      this.$router.push("feed");
+    }
+  },
+
   methods: {
     navToLogin() {
       this.$router.push("login");
@@ -37,7 +43,8 @@ export default {
 .home {
   background: $mainColor;
   display: grid;
-  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
   width: 100%;
   place-items: center;
   grid-template-rows: 2.5fr 1fr 2.5fr;

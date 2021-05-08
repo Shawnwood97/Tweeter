@@ -27,10 +27,17 @@
     <p class="comment" v-if="!showCommentEdit">{{ indCommentInfo.content }}</p>
     <div id="editSect" v-else>
       <form action="javascript:void(0)">
-        <input
+        <!-- <input
           type="text"
           :value="indCommentInfo.content"
           id="editCommentInput"
+        /> -->
+        <textarea-autosize
+          id="editCommentInput"
+          placeholder="Enter Comment"
+          :value="indCommentInfo.content"
+          rows="1"
+          :minHeight="20"
         />
         <input
           type="submit"

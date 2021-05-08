@@ -1,23 +1,22 @@
 <template>
-  <div>
-    <section id="loginForm">
-      <login-fail v-if="$store.state.loginError" />
-      <login-success v-else-if="loginSuccess" />
-      <user-login v-else />
-    </section>
-  </div>
+  <main>
+    <site-error v-if="$store.state.siteError" />
+    <user-login />
+  </main>
 </template>
 
 <script>
-import cookies from "vue-cookies";
-import LoginFail from "../components/UserLogin/loginFail.vue";
-import LoginSuccess from "../components/UserLogin/loginSuccess.vue";
+import SiteError from "../components/GlobalComponents/SiteError.vue";
 import UserLogin from "../components/UserLogin/UserLogin.vue";
 export default {
-  components: { UserLogin, LoginFail, LoginSuccess },
+  components: { UserLogin, SiteError },
   name: "login-register",
 
-  userId: cookies.get("userId"),
+  mounted() {
+    if (this.$store.state.loginToken) {
+      this.$router.push("feed");
+    }
+  },
 
   computed: {
     loginSuccess() {

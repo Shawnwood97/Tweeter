@@ -49,3 +49,20 @@ sans-serif;
     color: #000;
   }
 }
+
+@mixin inputOne {
+  background: $secColor;
+  border: 0;
+  padding: 10px;
+  border-radius: 5px;
+  color: $secText;
+  border: 1px solid transparent;
+  font-size: 1rem;
+  font-weight: bold;
+
+  &:active,
+  &:focus {
+    outline: none;
+    border: 1px solid $secText;
+  }
+}

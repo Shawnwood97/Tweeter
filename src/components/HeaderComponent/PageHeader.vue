@@ -1,18 +1,11 @@
 <template>
-  <div>
-    <!-- <header v-if="!$store.state.loginToken">
-      <button @click="navToLogin">Login</button>
-      <button @click="navToRegister">Sign Up</button>
-    </header> -->
-    <!-- <header v-else-if="$store.state.loginToken && userInfo"> -->
-    <header>
-      <router-link :to="{ path: `/users/${userInfo.userId}` }"
-        ><img :src="userInfo.imageUrl" />
-      </router-link>
-      <h4>{{ userInfo.username }}</h4>
-      <button id="logoutBtn" @click="logoutUser">Logout</button>
-    </header>
-  </div>
+  <header v-if="userInfo">
+    <router-link :to="{ path: `/users/${userInfo.userId}` }"
+      ><img :src="userInfo.imageUrl" />
+    </router-link>
+    <h4>{{ userInfo.username }}</h4>
+    <button id="logoutBtn" @click="logoutUser">Logout</button>
+  </header>
 </template>
 
 <script>
@@ -22,13 +15,6 @@ export default {
   methods: {
     logoutUser() {
       this.$store.dispatch("logOut");
-    },
-
-    navToRegister() {
-      this.$router.push("register");
-    },
-    navToLogin() {
-      this.$router.push("login");
     },
   },
 
@@ -52,9 +38,13 @@ export default {
 <style lang="scss" scoped>
 header {
   display: grid;
-  grid-auto-flow: column;
-  align-items: center;
-  height: 50px;
+  grid-template-columns: auto 1fr auto;
+  place-items: center;
+  height: 5vh;
+  position: fixed;
+  top: 0;
+  background: #000;
+  width: 100%;
 
   img {
     width: 40px;

@@ -13,10 +13,7 @@ export default new Vuex.Store({
     loginToken: "",
     username: null,
     userId: null,
-    loginError: "",
-    showRegistration: false,
-    defaultDisplayPic:
-      "https://robohash.org/perferendisfacerequidem.jpg?size=400x400&set=set2",
+    siteError: "",
 
     allUsers: [],
 
@@ -42,8 +39,8 @@ export default new Vuex.Store({
     setUsername(state, data) {
       state.username = data;
     },
-    setLoginError(state, data) {
-      state.loginError = data;
+    setSiteError(state, data) {
+      state.siteError = data;
     },
     regToggle(state, data) {
       state.showRegistration = data;
@@ -223,7 +220,6 @@ export default new Vuex.Store({
         })
         .then((res) => {
           context.commit("setAllTweets", res.data);
-
           for (let i = 0; i < this.state.allTweets.length; i++) {
             if (this.state.allTweets[i].userImageUrl === null) {
               this.state.allTweets[i].userImageUrl =

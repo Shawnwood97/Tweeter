@@ -17,12 +17,13 @@ export default {
 nav {
   display: grid;
   grid-auto-flow: column;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   place-items: center;
   width: 100%;
-  min-height: 6vh;
+  height: 6vh;
   border: 1px solid #000;
+  background: #000;
   z-index: 9999;
 }
 </style>
