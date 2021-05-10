@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <main>
     <profile-user-info />
     <create-tweet v-if="Number($attrs.id) === $store.state.userId" />
     <profile-tweet-list />
-  </div>
+  </main>
 </template>
 
 <script>

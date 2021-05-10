@@ -4,11 +4,13 @@
     v-else-if="$store.state.initComplete && $store.state.loginToken"
     id="loggedInApp"
   >
+    <site-message v-if="$store.state.siteError || $store.state.siteMessage" />
     <page-header v-if="$store.state.loginToken" />
     <router-view id="loggedInRouter" :key="$route.fullPath" />
     <mobile-nav v-if="$store.state.loginToken" />
   </div>
   <div v-else id="app">
+    <site-message v-if="$store.state.siteError || $store.state.siteMessage" />
     <router-view :key="$route.fullPath" />
   </div>
 </template>
@@ -18,8 +20,9 @@ import cookies from "vue-cookies";
 import PageHeader from "./components/HeaderComponent/PageHeader.vue";
 import MobileNav from "./components/MobileComponents/MobileNav.vue";
 import InitLoading from "./components/UserLogin/InitLoading.vue";
+import SiteMessage from "./components/GlobalComponents/SiteMessage.vue";
 export default {
-  components: { PageHeader, MobileNav, InitLoading },
+  components: { PageHeader, MobileNav, InitLoading, SiteMessage },
   data() {
     return {
       userIdCookie: cookies.get("userId"),
@@ -38,8 +41,6 @@ export default {
       this.$store.commit("setLoginToken", this.loginToken);
       this.$store.commit("setUserId", this.userIdCookie);
       this.$store.dispatch("checkLoggedIn");
-      console.log(this.$store.state.loginToken);
-      // this.$store.dispatch("getUserFollows");
     } else {
       this.$store.commit("setInitComplete", true);
     }
@@ -68,10 +69,7 @@ export default {
   margin-bottom: 6vh;
   margin-top: 6vh;
   padding: 5px 0;
-}
-
-#loggedInRouter {
-  min-height: 89vh;
+  min-height: 88vh;
 }
 
 a {

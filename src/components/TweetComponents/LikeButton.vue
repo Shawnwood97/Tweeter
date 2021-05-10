@@ -54,13 +54,15 @@ export default {
             tweetId: this.tweetId,
           },
         })
-        .then((res) => {
-          console.log(res.data);
+        .then(() => {
           this.tweetLiked = true;
           this.tweetLikes++;
         })
-        .catch((err) => {
-          console.log(err.response);
+        .catch(() => {
+          this.$store.commit("setSiteError", "Error Liking Tweet, Try Again!");
+          setTimeout(() => {
+            this.$store.commit("setSiteError", "");
+          }, 3000);
         });
     },
 
@@ -78,13 +80,18 @@ export default {
             tweetId: this.tweetId,
           },
         })
-        .then((res) => {
-          console.log(res.data);
+        .then(() => {
           this.tweetLiked = false;
           this.tweetLikes--;
         })
-        .catch((err) => {
-          console.log(err.response);
+        .catch(() => {
+          this.$store.commit(
+            "setSiteError",
+            "Error Unliking Tweet, Try Again!"
+          );
+          setTimeout(() => {
+            this.$store.commit("setSiteError", "");
+          }, 3000);
         });
     },
   },

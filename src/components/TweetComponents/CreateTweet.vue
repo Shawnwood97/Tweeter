@@ -53,11 +53,14 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res.data);
           this.userTweets.unshift(res.data);
+          this.tweetContent = "";
         })
-        .catch((err) => {
-          console.log(err.response);
+        .catch(() => {
+          this.$store.commit("setSiteError", "Error Posting Tweet, Try Again");
+          setTimeout(() => {
+            this.$store.commit("setSiteError", "");
+          }, 3000);
         });
     },
   },

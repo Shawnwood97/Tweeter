@@ -14,6 +14,7 @@ export default new Vuex.Store({
     username: null,
     userId: null,
     siteError: "",
+    siteMessage: "",
 
     allUsers: [],
 
@@ -41,6 +42,9 @@ export default new Vuex.Store({
     },
     setSiteError(state, data) {
       state.siteError = data;
+    },
+    setSiteMessage(state, data) {
+      state.siteMessage = data;
     },
     regToggle(state, data) {
       state.showRegistration = data;
@@ -92,10 +96,12 @@ export default new Vuex.Store({
         .then((res) => {
           context.commit("setUsername", res.data[0].username);
           context.dispatch("getUsers");
-          // console.log(context);
         })
-        .catch((err) => {
-          console.log(err.response);
+        .catch(() => {
+          context.commit("setSiteError", "Error Logging You In!");
+          setTimeout(() => {
+            context.commit("setSiteError", "");
+          }, 3000);
         });
     },
     getUsers(context) {
@@ -120,11 +126,15 @@ export default new Vuex.Store({
             }
           }
           context.dispatch("getUserFollows");
-          // console.log(res.data);
-          // console.log(context);
         })
-        .catch((err) => {
-          console.log(err.response);
+        .catch(() => {
+          context.commit(
+            "setSiteError",
+            "Error Getting Users, Try Refreshing!"
+          );
+          setTimeout(() => {
+            context.commit("setSiteError", "");
+          }, 3000);
         });
     },
     logOut(context) {
@@ -140,15 +150,17 @@ export default new Vuex.Store({
             loginToken: context.state.loginToken,
           },
         })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           cookies.remove("loginToken");
           cookies.remove("userId");
           context.commit("setLoginToken", null);
           router.push("/");
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
+          context.commit("setSiteError", "Error Logging You Out!");
+          setTimeout(() => {
+            context.commit("setSiteError", "");
+          }, 3000);
         });
     },
     getUserFollows(context) {
@@ -164,14 +176,17 @@ export default new Vuex.Store({
           },
         })
         .then((res) => {
-          console.log(res.data);
           context.commit("setFollowedUsers", res.data);
           context.dispatch("getAllLikes");
-
-          // console.log(context.state.followedUsers);
         })
-        .catch((err) => {
-          console.log(err.response);
+        .catch(() => {
+          context.commit(
+            "setSiteError",
+            "Error Getting Followed Users, Try Refreshing!"
+          );
+          setTimeout(() => {
+            context.commit("setSiteError", "");
+          }, 3000);
         });
     },
     getAllLikes(context) {
@@ -187,8 +202,14 @@ export default new Vuex.Store({
           context.commit("setAllLikes", res.data);
           context.dispatch("getAllCommentLikes");
         })
-        .catch((err) => {
-          console.log(err.response);
+        .catch(() => {
+          context.commit(
+            "setSiteError",
+            "Error Getting Tweet Likes, Try Refreshing!"
+          );
+          setTimeout(() => {
+            context.commit("setSiteError", "");
+          }, 3000);
         });
     },
     getAllCommentLikes(context) {
@@ -204,8 +225,14 @@ export default new Vuex.Store({
           context.commit("setAllCommentLikes", res.data);
           context.dispatch("getAllTweets");
         })
-        .catch((err) => {
-          console.log(err.response);
+        .catch(() => {
+          context.commit(
+            "setSiteError",
+            "Error Getting Comment Likes, Try Refreshing!"
+          );
+          setTimeout(() => {
+            context.commit("setSiteError", "");
+          }, 3000);
         });
     },
     getAllTweets(context) {
@@ -227,8 +254,14 @@ export default new Vuex.Store({
           }
           context.dispatch("getUserTweets");
         })
-        .catch((err) => {
-          console.log(err.response);
+        .catch(() => {
+          context.commit(
+            "setSiteError",
+            "Error Getting Tweets, Try Refreshing!"
+          );
+          setTimeout(() => {
+            context.commit("setSiteError", "");
+          }, 3000);
         });
     },
     getUserTweets(context) {
@@ -247,8 +280,14 @@ export default new Vuex.Store({
           context.commit("setUserTweets", res.data);
           context.commit("setInitComplete", true);
         })
-        .catch((err) => {
-          console.log(err.response);
+        .catch(() => {
+          context.commit(
+            "setSiteError",
+            "Error Getting Your Tweets, Try Refreshing!"
+          );
+          setTimeout(() => {
+            context.commit("setSiteError", "");
+          }, 3000);
         });
     },
   },

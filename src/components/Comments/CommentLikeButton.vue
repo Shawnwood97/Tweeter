@@ -25,6 +25,7 @@ export default {
 
   props: {
     commentId: Number,
+    commentUsername: String,
   },
 
   data() {
@@ -55,13 +56,25 @@ export default {
             commentId: this.commentId,
           },
         })
-        .then((res) => {
-          console.log(res.data);
+        .then(() => {
+          this.$store.commit(
+            "setSiteMessage",
+            `You Liked ${this.commentUsername}'s Comment`
+          );
+          setTimeout(() => {
+            this.$store.commit("setSiteMessage", "");
+          }, 3000);
           this.commentLiked = true;
           this.commentLikes++;
         })
-        .catch((err) => {
-          console.log(err.response);
+        .catch(() => {
+          this.$store.commit(
+            "setSiteError",
+            "Error Liking Comment, Try Again!"
+          );
+          setTimeout(() => {
+            this.$store.commit("setSiteError", "");
+          }, 3000);
         });
     },
 
@@ -79,20 +92,31 @@ export default {
             commentId: this.commentId,
           },
         })
-        .then((res) => {
-          console.log(res.data);
+        .then(() => {
+          this.$store.commit(
+            "setSiteMessage",
+            `You UnLiked ${this.commentUsername}'s Comment`
+          );
+          setTimeout(() => {
+            this.$store.commit("setSiteMessage", "");
+          }, 3000);
           this.commentLiked = false;
           this.commentLikes--;
         })
-        .catch((err) => {
-          console.log(err.response);
+        .catch(() => {
+          this.$store.commit(
+            "setSiteError",
+            "Error UnLiking Comment, Try Again!"
+          );
+          setTimeout(() => {
+            this.$store.commit("setSiteError", "");
+          }, 3000);
         });
     },
   },
 
   mounted() {
     for (let i = 0; i < this.getUserCommentLikes.length; i++) {
-      // console.log(this.getUserLikes[i].userId);
       if (this.getUserCommentLikes[i].commentId === this.commentId) {
         this.commentLiked = true;
         break;

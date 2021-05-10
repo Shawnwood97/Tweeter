@@ -171,12 +171,18 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res.data);
           this.tweetComments.unshift(res.data);
+          this.commentInput = "";
           this.showComment = !this.showComment;
         })
-        .catch((err) => {
-          console.log(err.response);
+        .catch(() => {
+          this.$store.commit(
+            "setSiteError",
+            "Error Posting Comment, Try Again!"
+          );
+          setTimeout(() => {
+            this.$store.commit("setSiteError", "");
+          }, 3000);
         });
     },
 
@@ -195,8 +201,7 @@ export default {
             content: document.getElementById("editInput").value,
           },
         })
-        .then((res) => {
-          console.log(res.data);
+        .then(() => {
           for (let i = 0; i < this.$store.state.userTweets.length; i++) {
             if (
               this.$store.state.userTweets[i].tweetId === this.tweetInfo.tweetId
@@ -219,8 +224,11 @@ export default {
           }
           this.showEdit = !this.showEdit;
         })
-        .catch((err) => {
-          console.log(err.response);
+        .catch(() => {
+          this.$store.commit("setSiteError", "Error Editing Tweet, Try Again!");
+          setTimeout(() => {
+            this.$store.commit("setSiteError", "");
+          }, 3000);
         });
     },
     deleteTweet() {
@@ -255,10 +263,15 @@ export default {
               this.$store.getters.randTweets.splice(i, 1);
             }
           }
-          // this.showEdit = !this.showEdit;
         })
-        .catch((err) => {
-          console.log(err.response);
+        .catch(() => {
+          this.$store.commit(
+            "setSiteError",
+            "Error Deleting Tweet, Try Again!"
+          );
+          setTimeout(() => {
+            this.$store.commit("setSiteError", "");
+          }, 3000);
         });
     },
   },
@@ -276,11 +289,13 @@ export default {
         },
       })
       .then((res) => {
-        console.log(res.data);
         this.tweetComments = res.data.reverse();
       })
-      .catch((err) => {
-        console.log(err.response);
+      .catch(() => {
+        this.$store.commit("setSiteError", "Error Getting Comments, Refresh!");
+        setTimeout(() => {
+          this.$store.commit("setSiteError", "");
+        }, 3000);
       });
   },
 };

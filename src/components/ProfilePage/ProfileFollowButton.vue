@@ -58,13 +58,24 @@ export default {
             followId: this.currentProfile.userId,
           },
         })
-        .then((res) => {
-          console.log(res.data);
+        .then(() => {
           this.$store.commit("addFollowedUser", this.currentProfile);
           this.userFollowed = true;
+          this.$store.commit(
+            "setSiteMessage",
+            `You Followed ${this.currentProfile.username}`
+          );
+          setTimeout(() => {
+            this.$store.commit("setSiteMessage", "");
+          }, 3000);
         })
-        .catch((err) => {
-          console.log(err.response);
+        .catch(() => {
+          this.$store.commit(
+            `setSiteError", "Error Following ${this.currentProfile.username}, Try Again!`
+          );
+          setTimeout(() => {
+            this.$store.commit("setSiteError", "");
+          }, 3000);
         });
     },
     unFollowUser() {
@@ -81,9 +92,7 @@ export default {
             followId: this.currentProfile.userId,
           },
         })
-        .then((res) => {
-          console.log(res.data);
-
+        .then(() => {
           for (let i = 0; i < this.$store.state.followedUsers.length; i++) {
             if (
               this.$store.state.followedUsers[i].userId ===
@@ -93,9 +102,22 @@ export default {
             }
           }
           this.userFollowed = false;
+
+          this.$store.commit(
+            "setSiteMessage",
+            `You Unfollowed ${this.currentProfile.username}`
+          );
+          setTimeout(() => {
+            this.$store.commit("setSiteMessage", "");
+          }, 3000);
         })
-        .catch((err) => {
-          console.log(err.response);
+        .catch(() => {
+          this.$store.commit(
+            `setSiteError", "Error Unfollowing ${this.currentProfile.username}, Try Again!`
+          );
+          setTimeout(() => {
+            this.$store.commit("setSiteError", "");
+          }, 3000);
         });
     },
   },

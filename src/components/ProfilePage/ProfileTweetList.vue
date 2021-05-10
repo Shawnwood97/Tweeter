@@ -34,7 +34,6 @@ export default {
         },
       })
       .then((res) => {
-        // console.log(res.data);
         this.$store.commit("setUserTweets", res.data.reverse());
         for (let i = 0; i < this.$store.state.userTweets.length; i++) {
           if (this.$store.state.userTweets[i].userImageUrl === null) {
@@ -42,10 +41,15 @@ export default {
               "https://cdn.discordapp.com/attachments/841266201657344010/841266288486907914/ABSRlIpzcqh_JEyZP1CW1_RaZDO34zgsV3wfGtpwfn_D3IB6XFnQjvFl5nkymDIEJ58dpJoA1-t8agaWloWXJhVz9WWaXYVIbkkj.png";
           }
         }
-        // this.userTweets = res.data.reverse();
       })
-      .catch((err) => {
-        console.log(err.response);
+      .catch(() => {
+        this.$store.commit(
+          "setSiteError",
+          "Error Getting User Tweets! Try Again!"
+        );
+        setTimeout(() => {
+          this.$store.commit("setSiteError", "");
+        }, 3000);
       });
   },
 };

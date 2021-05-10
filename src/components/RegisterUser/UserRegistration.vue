@@ -1,7 +1,5 @@
 <template>
   <main>
-    <site-error v-if="$store.state.siteError" />
-
     <div class="mainGrid">
       <div class="containerOne">
         <svg id="logo" viewBox="0 0 248 204">
@@ -85,17 +83,13 @@
       </div>
     </div>
   </main>
-  <!-- <already-registered v-else-if="loginToken" /> -->
 </template>
 
 <script>
 import axios from "axios";
 import cookies from "vue-cookies";
-import SiteError from "../GlobalComponents/SiteError.vue";
 
 export default {
-  components: { SiteError },
-
   name: "user-registration",
 
   data() {
@@ -148,8 +142,6 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res);
-          // set cookie and update login state
           cookies.set("loginToken", res.data.loginToken);
           cookies.set("userId", res.data.userId);
           this.$store.commit("setInitComplete", false);
@@ -158,9 +150,8 @@ export default {
           this.$store.commit("setUsername", res.data.username);
           this.$store.dispatch("checkLoggedIn");
         })
-        .catch((err) => {
-          console.log(err.response);
-          this.$store.commit("setSiteError", err.response.data);
+        .catch(() => {
+          this.$store.commit("setSiteError", "Error Registering, Try Again!");
           setTimeout(() => {
             this.$store.commit("setSiteError", "");
           }, 3000);

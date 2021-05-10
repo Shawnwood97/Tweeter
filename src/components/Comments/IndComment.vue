@@ -39,6 +39,7 @@
       <comment-like-button
         v-if="this.$store.state.loginToken && indCommentInfo.commentId"
         :commentId="indCommentInfo.commentId"
+        :commentUsername="indCommentInfo.username"
       />
       <font-awesome-icon
         class="commentIcon"
@@ -109,8 +110,7 @@ export default {
             content: document.getElementById("editCommentInput").value,
           },
         })
-        .then((res) => {
-          console.log(res.data);
+        .then(() => {
           for (let i = 0; i < this.$store.state.userTweets.length; i++) {
             this.indCommentInfo.content = document.getElementById(
               "editCommentInput"
@@ -123,9 +123,20 @@ export default {
             ).value;
           }
           this.showCommentEdit = !this.showCommentEdit;
+          this.$store.commit("setSiteMessage", `You Edited Your Comment!`);
+          setTimeout(() => {
+            this.$store.commit("setSiteMessage", "");
+          }, 3000);
         })
-        .catch((err) => {
-          console.log(err.response);
+
+        .catch(() => {
+          this.$store.commit(
+            "setSiteError",
+            "Error Editing Comment, Try Again!"
+          );
+          setTimeout(() => {
+            this.$store.commit("setSiteError", "");
+          }, 3000);
         });
     },
     deleteComment() {
@@ -142,13 +153,22 @@ export default {
             commentId: this.indCommentInfo.commentId,
           },
         })
-        .then((res) => {
-          console.log(res.data);
+        .then(() => {
+          this.$store.commit("setSiteMessage", `You Deleted Your Comment!`);
+          setTimeout(() => {
+            this.$store.commit("setSiteMessage", "");
+          }, 3000);
           this.indCommentInfo = [];
           this.commentToggle = false;
         })
-        .catch((err) => {
-          console.log(err.response);
+        .catch(() => {
+          this.$store.commit(
+            "setSiteError",
+            "Error Deleting Comment, Try Again!"
+          );
+          setTimeout(() => {
+            this.$store.commit("setSiteError", "");
+          }, 3000);
         });
     },
   },

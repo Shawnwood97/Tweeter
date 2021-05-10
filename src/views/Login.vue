@@ -1,15 +1,13 @@
 <template>
   <main>
-    <site-error v-if="$store.state.siteError" />
     <user-login />
   </main>
 </template>
 
 <script>
-import SiteError from "../components/GlobalComponents/SiteError.vue";
 import UserLogin from "../components/UserLogin/UserLogin.vue";
 export default {
-  components: { UserLogin, SiteError },
+  components: { UserLogin },
   name: "login-register",
 
   mounted() {

@@ -9,16 +9,17 @@
       <div id="userPanel">
         <img class="profilePic" :src="userInfo.imageUrl" alt="" />
         <div id="userInfo">
-          <h2 id="profileUsername">
-            {{ userInfo.username }}
-          </h2>
-          <profile-follow-button
-            v-if="userInfo.userId !== $store.state.userId"
-            :currentProfile="userInfo"
-          />
-
+          <div>
+            <h2 id="profileUsername">
+              {{ userInfo.username }}
+            </h2>
+            <profile-follow-button
+              v-if="userInfo.userId !== $store.state.userId"
+              :currentProfile="userInfo"
+            />
+          </div>
           <p id="profileBio">{{ userInfo.bio }}</p>
-          <!-- <p id="profileEmail">{{ userInfo.email }}</p> -->
+
           <div id="lastProfileRow">
             <p id="profileBirthDate">
               <font-awesome-icon
@@ -26,7 +27,7 @@
                 :icon="['fas', 'birthday-cake']"
               />{{ userInfo.birthdate }}
             </p>
-            <!-- <img :src="userInfo.imageUrl" alt="" /> -->
+
             <div
               id="profileEdit"
               v-if="userInfo.userId === $store.state.userId"
@@ -96,6 +97,10 @@ export default {
   #userInfo {
     display: grid;
     margin-left: 5px;
+    > div {
+      display: grid;
+      grid-template-columns: 1fr auto;
+    }
     #profileUsername {
       font-size: 1.2rem;
       color: $secText;
