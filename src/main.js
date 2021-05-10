@@ -12,6 +12,10 @@ import {
   faEdit,
   faTrashAlt,
   faSignOutAlt,
+  faHome,
+  faUserAlt,
+  faBroadcastTower,
+  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -24,7 +28,11 @@ library.add(
   faHeart,
   faEdit,
   faTrashAlt,
-  faSignOutAlt
+  faSignOutAlt,
+  faHome,
+  faUserAlt,
+  faBroadcastTower,
+  faUsers
 );
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

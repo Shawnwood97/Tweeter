@@ -1,37 +1,36 @@
 <template>
   <nav>
-    <button>
-      <router-link
-        :to="{
-          path: `/users/${this.$store.state.userId}`,
-        }"
-        >Profile</router-link
-      >
-    </button>
-    <button>
-      <router-link
-        :to="{
-          name: 'feed',
-        }"
-        >Feed</router-link
-      >
-    </button>
-    <button>
-      <router-link
-        :to="{
-          name: 'discover',
-        }"
-        >Discover</router-link
-      >
-    </button>
-    <button>
-      <router-link
-        :to="{
-          name: 'users',
-        }"
-        >Users</router-link
-      >
-    </button>
+    <router-link
+      active-class="navIconActive"
+      :to="{
+        name: 'feed',
+      }"
+      ><font-awesome-icon class="navIcon" :icon="['fas', 'home']"
+    /></router-link>
+    <router-link
+      active-class="navIconActive"
+      :to="{
+        path: `/users/${this.$store.state.userId}`,
+      }"
+    >
+      <font-awesome-icon class="navIcon" :icon="['fas', 'user-alt']"
+    /></router-link>
+
+    <router-link
+      active-class="navIconActive"
+      :to="{
+        name: 'discover',
+      }"
+      ><font-awesome-icon class="navIcon" :icon="['fas', 'broadcast-tower']"
+    /></router-link>
+
+    <router-link
+      exact-active-class="navIconActive"
+      :to="{
+        name: 'users',
+      }"
+      ><font-awesome-icon class="navIcon" :icon="['fas', 'users']"
+    /></router-link>
   </nav>
 </template>
 
@@ -55,5 +54,9 @@ nav {
   background: $secColor;
 
   z-index: 9999;
+}
+
+.navIconActive path {
+  fill: $mainLink;
 }
 </style>
