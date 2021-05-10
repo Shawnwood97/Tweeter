@@ -41,12 +41,14 @@
           rows="1"
           :min-height="20"
           :value="tweetInfo.content"
+          v-model="editInput"
           id="editInput"
         />
         <input
           type="submit"
           value="Submit"
           for="editInput"
+          :disabled="editDisabled"
           @click="editTweet"
         />
       </form>
@@ -83,9 +85,15 @@
           id="commentInput"
           placeholder="Enter Comment"
           rows="1"
+          v-model="commentInput"
           :minHeight="20"
         />
-        <input type="submit" value="Submit" @click="postComment" />
+        <input
+          type="submit"
+          value="Submit"
+          @click="postComment"
+          :disabled="commentDisabled"
+        />
       </form>
     </div>
     <ind-comment
@@ -117,14 +125,27 @@ export default {
       showComment: false,
       newComment: [],
       tweetComments: [],
+      commentInput: "",
+      editInput: "",
     };
   },
 
-  // computed: {
-  //   randComments() {
-  //     return this.$store.getters.randT
-  //   }
-  // },
+  computed: {
+    commentDisabled() {
+      if (this.commentInput) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+    editDisabled() {
+      if (this.editInput) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+  },
 
   methods: {
     enableEdit() {
@@ -346,6 +367,8 @@ export default {
     padding: 5px 10px;
     font-size: 0.9rem;
     place-self: end;
+
+    @include btnDisabled;
   }
 }
 

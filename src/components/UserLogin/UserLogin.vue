@@ -20,6 +20,7 @@
           <input
             type="text"
             name="username"
+            v-model="usernameInput"
             id="usernameInput"
             placeholder="Username"
             required
@@ -29,13 +30,19 @@
           <input
             type="password"
             name="password"
+            v-model="passwordInput"
             id="passwordInput"
             placeholder="Password"
             required
           />
 
           <div>
-            <input @click="logIn" type="submit" value="Login" />
+            <input
+              @click="logIn"
+              :disabled="isDisabled"
+              type="submit"
+              value="Login"
+            />
           </div>
         </form>
         <p>
@@ -53,6 +60,23 @@ import axios from "axios";
 
 export default {
   name: "user-login",
+
+  data() {
+    return {
+      usernameInput: "",
+      passwordInput: "",
+    };
+  },
+
+  computed: {
+    isDisabled() {
+      if (this.usernameInput.length >= 4 && this.passwordInput.length >= 4) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+  },
 
   methods: {
     logIn() {
@@ -108,57 +132,5 @@ export default {
   place-items: center;
   gap: 20px;
   width: 100%;
-  // .containerOne {
-  //   display: grid;
-  //   place-items: center;
-  //   gap: 20px;
-
-  //   #logo {
-  //     width: 100px;
-  //     fill: $mainLink;
-  //   }
-
-  //   h1 {
-  //     color: $mainText;
-
-  //     place-items: center;
-  //     font-weight: 400;
-
-  //     span {
-  //       font-weight: bold;
-  //       font-family: $lato;
-  //       color: $mainLink;
-  //     }
-  //   }
-  // }
-
-  // .containerTwo {
-  //   place-self: start center;
-  //   width: 70%;
-
-  //   form {
-  //     display: grid;
-  //     gap: 20px;
-  //     place-items: center;
-  //     width: 100%;
-
-  //     input[type="text"],
-  //     input[type="password"] {
-  //       width: 100%;
-  //       @include inputOne;
-  //     }
-
-  //     input[type="submit"] {
-  //       @include mainBtn;
-  //       padding: 10px 30px;
-  //     }
-  //   }
-
-  //   p {
-  //     font-size: 0.9rem;
-  //     margin-top: 15px;
-  //     text-align: center;
-  //   }
-  // }
 }
 </style>

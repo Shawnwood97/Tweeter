@@ -129,6 +129,8 @@ a {
     input[type="submit"] {
       @include mainBtn;
       padding: 10px 30px;
+
+      @include btnDisabled;
     }
   }
 

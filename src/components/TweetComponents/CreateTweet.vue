@@ -5,9 +5,10 @@
       id="tweetContent"
       placeholder="Enter Tweet"
       rows="1"
+      v-model="tweetContent"
       :minHeight="20"
     />
-    <button @click="createTweet">Send Tweet</button>
+    <button @click="createTweet" :disabled="isDisabled">Send Tweet</button>
   </div>
 </template>
 
@@ -16,9 +17,22 @@ import axios from "axios";
 export default {
   name: "create-tweet",
 
+  data() {
+    return {
+      tweetContent: "",
+    };
+  },
+
   computed: {
     userTweets() {
       return this.$store.state.userTweets;
+    },
+    isDisabled() {
+      if (this.tweetContent.length) {
+        return false;
+      } else {
+        return true;
+      }
     },
   },
 
@@ -70,6 +84,8 @@ div {
     margin-right: 8px;
     padding: 5px 10px;
     font-size: 0.9rem;
+
+    @include btnDisabled;
   }
 }
 </style>

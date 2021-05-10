@@ -21,6 +21,7 @@
           id="editCommentInput"
           placeholder="Enter Comment"
           :value="indCommentInfo.content"
+          v-model="editCommentInput"
           rows="1"
           :minHeight="20"
         />
@@ -28,6 +29,7 @@
           type="submit"
           value="Submit"
           for="editInput"
+          :disabled="editDisabled"
           @click="editComment"
         />
       </form>
@@ -73,7 +75,18 @@ export default {
       showCommentEdit: false,
       indCommentInfo: this.commentInfo,
       commentToggle: true,
+      editCommentInput: "",
     };
+  },
+
+  computed: {
+    editDisabled() {
+      if (this.editCommentInput) {
+        return false;
+      } else {
+        return true;
+      }
+    },
   },
 
   methods: {
@@ -210,6 +223,7 @@ export default {
         padding: 5px 10px;
         font-size: 0.9rem;
         place-self: end;
+        @include btnDisabled;
       }
     }
   }

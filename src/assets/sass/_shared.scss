@@ -72,3 +72,14 @@ $bsMain: 0 0 2px 1px rgba(29, 31, 33, 1);
     border: 1px solid $secText;
   }
 }
+
+@mixin btnDisabled {
+  &:disabled {
+    opacity: 0.3;
+
+    &:hover {
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+  }
+}

@@ -2,7 +2,7 @@
   <main>
     <site-error v-if="$store.state.siteError" />
 
-    <div class="mainGrid" v-if="!loginToken">
+    <div class="mainGrid">
       <div class="containerOne">
         <svg id="logo" viewBox="0 0 248 204">
           <path
@@ -20,11 +20,23 @@
         <form action="javascript:void(0)">
           <div class="formItem">
             <label for="email">Email Address</label>
-            <input type="email" name="email" id="emailInput" required />
+            <input
+              type="email"
+              name="email"
+              id="emailInput"
+              v-model="emailInput"
+              required
+            />
           </div>
           <div class="formItem">
             <label for="username">Username</label>
-            <input type="text" name="username" id="usernameInput" required />
+            <input
+              type="text"
+              name="username"
+              id="usernameInput"
+              v-model="usernameInput"
+              required
+            />
           </div>
           <div class="formItem">
             <label for="password">Password</label>
@@ -32,20 +44,19 @@
               type="password"
               name="password"
               id="passwordInput"
+              v-model="passwordInput"
               required
             />
           </div>
-          <!-- <div class="formItem">
-        <label for="confirmPassword">Confirm Password</label>
-        <input
-          type="password"
-          name="confirmPassword"
-          id="confirmPasswordInput"
-        />
-      </div> -->
           <div class="formItem">
             <label for="headline">Headline</label>
-            <input type="text" name="headline" id="headlineInput" required />
+            <input
+              type="text"
+              name="headline"
+              id="headlineInput"
+              v-model="headlineInput"
+              required
+            />
           </div>
           <div class="formItem">
             <label for="birthDate">Date Of Birth</label>
@@ -54,11 +65,17 @@
               name="birthDate"
               id="birthDateInput"
               value="2020-04-20"
+              v-model="birthDateInput"
               required
             />
           </div>
           <div class="formItem">
-            <input @click="registerUser" type="submit" value="Register" />
+            <input
+              @click="registerUser"
+              type="submit"
+              value="Register"
+              :disabled="isDisabled"
+            />
           </div>
         </form>
         <p>
@@ -83,8 +100,28 @@ export default {
 
   data() {
     return {
-      loginToken: cookies.get("loginToken"),
+      emailInput: "",
+      usernameInput: "",
+      passwordInput: "",
+      headlineInput: "",
+      birthDateInput: "",
     };
+  },
+
+  computed: {
+    isDisabled() {
+      if (
+        this.emailInput.length >= 4 &&
+        this.usernameInput.length >= 4 &&
+        this.passwordInput.length >= 4 &&
+        this.headlineInput.length >= 4 &&
+        this.birthDateInput
+      ) {
+        return false;
+      } else {
+        return true;
+      }
+    },
   },
 
   mounted() {
