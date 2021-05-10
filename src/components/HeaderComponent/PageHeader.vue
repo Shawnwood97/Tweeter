@@ -52,6 +52,7 @@ header {
   box-shadow: $bsMain;
   padding: 0 10px;
   width: 100%;
+  z-index: 9999;
 
   img {
     width: 40px;

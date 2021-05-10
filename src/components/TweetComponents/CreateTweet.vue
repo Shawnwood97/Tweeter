@@ -2,11 +2,12 @@
   <div>
     <h3>Publish A Tweet</h3>
     <textarea-autosize
+      :minHeight="20"
+      maxlength="200"
       id="tweetContent"
       placeholder="Enter Tweet"
       rows="1"
       v-model="tweetContent"
-      :minHeight="20"
     />
     <button @click="createTweet" :disabled="isDisabled">Send Tweet</button>
   </div>

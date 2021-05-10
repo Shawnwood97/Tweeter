@@ -1,11 +1,17 @@
 <template>
   <div>
-    <button v-if="!userFollowed" @click="followUser">
-      Follow {{ currentProfile.username }}
-    </button>
-    <button v-else @click="unFollowUser">
-      UnFollow {{ currentProfile.username }}
-    </button>
+    <font-awesome-icon
+      class="followUser"
+      :icon="['fas', 'user-plus']"
+      v-if="!userFollowed"
+      @click="followUser"
+    />
+    <font-awesome-icon
+      class="unfollowUser"
+      :icon="['fas', 'user-minus']"
+      v-else
+      @click="unFollowUser"
+    />
   </div>
 </template>
 
@@ -96,4 +102,11 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.followUser path {
+  fill: $mainLink;
+}
+.unfollowUser path {
+  fill: #ff2121;
+}
+</style>

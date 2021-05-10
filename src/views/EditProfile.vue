@@ -1,84 +1,143 @@
 <template>
   <div>
     <h2>Update Your Profile</h2>
-    <div>
-      <form action="javascript:void(0)">
+    <div id="mainGrid">
+      <div>
         <h4>Banner Image</h4>
-        <input type="text" id="bannerUrl" name="bannerUrl" />
-        <input
-          @click="updateBanner"
-          type="submit"
-          placeholder="Submit"
-          for="bannerUrl"
-        />
-      </form>
-    </div>
-    <div>
-      <form action="javascript:void(0)">
+        <form action="javascript:void(0)">
+          <textarea-autosize
+            :minHeight="20"
+            rows="1"
+            type="text"
+            id="bannerUrl"
+            class="editInput"
+            name="bannerUrl"
+          />
+          <input
+            @click="updateBanner"
+            type="submit"
+            placeholder="Submit"
+            for="bannerUrl"
+          />
+        </form>
+      </div>
+      <div>
         <h4>Profile Picture</h4>
-        <input type="text" id="profilePic" name="profilePic" />
-        <input
-          @click="updateProfilePic"
-          type="submit"
-          placeholder="Submit"
-          for="profilePic"
-        />
-      </form>
-    </div>
-    <div>
-      <form action="javascript:void(0)">
+        <form action="javascript:void(0)">
+          <textarea-autosize
+            :minHeight="20"
+            rows="1"
+            type="text"
+            id="profilePic"
+            class="editInput"
+            name="profilePic"
+          />
+          <input
+            @click="updateProfilePic"
+            type="submit"
+            placeholder="Submit"
+            for="profilePic"
+          />
+        </form>
+      </div>
+
+      <div>
         <h4>Headline</h4>
-        <input type="text" id="headline" name="headline" />
-        <input
-          @click="updateHeadline"
-          type="submit"
-          placeholder="Submit"
-          for="headline"
-        />
-      </form>
-    </div>
-    <div>
-      <form action="javascript:void(0)">
+        <form action="javascript:void(0)">
+          <textarea-autosize
+            maxlength="120"
+            :minHeight="20"
+            rows="1"
+            type="text"
+            id="headline"
+            class="editInput"
+            name="headline"
+          />
+          <input
+            @click="updateHeadline"
+            type="submit"
+            placeholder="Submit"
+            for="headline"
+          />
+        </form>
+      </div>
+      <div>
         <h4>Birthdate</h4>
-        <input type="date" name="birthDate" id="birthDate" value="2020-04-20" />
-        <input
-          @click="updateBday"
-          type="submit"
-          placeholder="Submit"
-          for="birthDate"
-        />
-      </form>
-      <form action="javascript:void(0)">
+        <form action="javascript:void(0)">
+          <input
+            type="date"
+            name="birthDate"
+            class="editInput"
+            id="birthDate"
+            value="2020-04-20"
+          />
+          <input
+            @click="updateBday"
+            type="submit"
+            placeholder="Submit"
+            for="birthDate"
+          />
+        </form>
+      </div>
+      <div>
         <h4>Username</h4>
-        <input type="text" name="userName" id="userName" />
-        <input
-          @click="updateUsername"
-          type="submit"
-          placeholder="Submit"
-          for="userName"
-        />
-      </form>
-      <form action="javascript:void(0)">
+        <form action="javascript:void(0)">
+          <textarea-autosize
+            maxlength="20"
+            :minHeight="20"
+            rows="1"
+            type="text"
+            name="userName"
+            class="editInput"
+            id="userName"
+          />
+          <input
+            @click="updateUsername"
+            type="submit"
+            placeholder="Submit"
+            for="userName"
+          />
+        </form>
+      </div>
+      <div>
         <h4>Email</h4>
-        <input type="email" name="email" id="email" />
-        <input
-          @click="updateEmail"
-          type="submit"
-          placeholder="Submit"
-          for="email"
-        />
-      </form>
-      <form action="javascript:void(0)">
+        <form action="javascript:void(0)">
+          <textarea-autosize
+            :minHeight="20"
+            rows="1"
+            type="email"
+            name="email"
+            class="editInput"
+            id="email"
+          />
+          <input
+            @click="updateEmail"
+            type="submit"
+            placeholder="Submit"
+            for="email"
+          />
+        </form>
+      </div>
+      <div class="deleteProfile">
         <h4>Delete Profile</h4>
         <p>This cannot be undone!</p>
-        <input type="password" name="password" id="password" />
-        <input
-          @click="deleteProfile"
-          type="submit"
-          placeholder="Submit"
-          for="password"
-        />
-      </form>
+        <form action="javascript:void(0)">
+          <textarea-autosize
+            :minHeight="20"
+            rows="1"
+            type="password"
+            name="password"
+            class="editInput"
+            id="password"
+          />
+          <input
+            @click="deleteProfile"
+            type="submit"
+            placeholder="Submit"
+            for="password"
+          />
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -239,4 +298,43 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+h2 {
+  margin: 10px 0 10px 10px;
+}
+#mainGrid {
+  display: grid;
+  width: 100%;
+  padding: 0 10px;
+  gap: 20px;
+
+  form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    place-items: center;
+
+    gap: 10px;
+    // width: 90%;
+    .editInput {
+      @include inputOne;
+      padding: 5px;
+      width: 100%;
+      font-size: 1.2rem;
+      place-self: center;
+      font-weight: 400;
+    }
+    input[type="submit"] {
+      @include mainBtn;
+      padding: 5px 10px;
+      font-size: 0.9rem;
+
+      @include btnDisabled;
+    }
+  }
+}
+
+.deleteProfile p {
+  color: #ff2121;
+  font-size: 0.9rem;
+}
+</style>

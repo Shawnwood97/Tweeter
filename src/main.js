@@ -16,6 +16,9 @@ import {
   faUserAlt,
   faBroadcastTower,
   faUsers,
+  faBirthdayCake,
+  faUserPlus,
+  faUserMinus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -32,7 +35,10 @@ library.add(
   faHome,
   faUserAlt,
   faBroadcastTower,
-  faUsers
+  faUsers,
+  faBirthdayCake,
+  faUserPlus,
+  faUserMinus
 );
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

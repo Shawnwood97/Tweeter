@@ -82,6 +82,7 @@
     <div id="commentSect" v-if="showComment">
       <form action="javascript:void(0)">
         <textarea-autosize
+          maxlength="150"
           id="commentInput"
           placeholder="Enter Comment"
           rows="1"
