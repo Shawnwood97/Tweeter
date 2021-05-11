@@ -10,6 +10,10 @@ export default {
   components: { UserRegistration },
 
   name: "registration-page",
+
+  created() {
+    document.title = "TheTweeter | Register Now!";
+  },
 };
 </script>
 

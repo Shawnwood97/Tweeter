@@ -18,6 +18,10 @@ export default {
   components: { IndTweet, CreateTweet },
   name: "feed",
 
+  created() {
+    document.title = "TheTweeter | Your Feed";
+  },
+
   mounted() {
     if (!this.$store.state.loginToken) {
       this.$router.push("/");

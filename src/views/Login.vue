@@ -9,6 +9,9 @@ import UserLogin from "../components/UserLogin/UserLogin.vue";
 export default {
   components: { UserLogin },
   name: "login-register",
+  created() {
+    document.title = "TheTweeter | Login";
+  },
 
   mounted() {
     if (this.$store.state.loginToken) {

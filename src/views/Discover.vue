@@ -13,6 +13,9 @@ import IndTweet from "../components/TweetComponents/IndTweet.vue";
 export default {
   components: { IndTweet },
   name: "discover",
+  created() {
+    document.title = "TheTweeter | Discover";
+  },
 
   mounted() {
     if (!this.$store.state.loginToken) {

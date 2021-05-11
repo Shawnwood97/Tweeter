@@ -10,6 +10,10 @@ export default {
   components: { UserCard },
   name: "users",
 
+  created() {
+    document.title = "TheTweeter | Users";
+  },
+
   mounted() {
     if (!this.$store.state.loginToken) {
       this.$router.push("/");

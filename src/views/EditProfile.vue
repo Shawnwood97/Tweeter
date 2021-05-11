@@ -154,6 +154,10 @@ import axios from "axios";
 export default {
   name: "edit-profile",
 
+  created() {
+    document.title = "TheTweeter | Edit Profile";
+  },
+
   data() {
     return {
       headlineInput: "",

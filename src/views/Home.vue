@@ -22,6 +22,10 @@
 export default {
   name: "home",
 
+  created() {
+    document.title = "TheTweeter | The Real Tweeter";
+  },
+
   mounted() {
     if (this.$store.state.loginToken) {
       this.$router.push("feed");

@@ -15,6 +15,10 @@ export default {
   components: { ProfileUserInfo, ProfileTweetList, CreateTweet },
   name: "profile",
 
+  created() {
+    document.title = `TheTweeter | User Profile ${this.$attrs.id}`;
+  },
+
   mounted() {
     if (!this.$store.state.loginToken) {
       this.$router.push("/");
