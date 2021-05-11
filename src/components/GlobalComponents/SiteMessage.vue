@@ -16,6 +16,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+section {
+  position: absolute;
+}
 .error,
 .message {
   position: fixed;

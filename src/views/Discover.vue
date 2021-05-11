@@ -14,6 +14,12 @@ export default {
   components: { IndTweet },
   name: "discover",
 
+  mounted() {
+    if (!this.$store.state.loginToken) {
+      this.$router.push("/");
+    }
+  },
+
   computed: {
     getRandTweets() {
       return this.$store.getters.randTweets;

@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <section>
     <user-card v-for="user in allUsers" :key="user.userId" :user="user" />
-  </div>
+  </section>
 </template>
 
 <script>
@@ -11,6 +11,9 @@ export default {
   name: "users",
 
   mounted() {
+    if (!this.$store.state.loginToken) {
+      this.$router.push("/");
+    }
     if (this.$store.state.loginToken) {
       return this.$store.dispatch("getUsers");
     }

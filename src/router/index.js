@@ -6,7 +6,6 @@ import register from "@/views/Register.vue";
 import feed from "@/views/Feed.vue";
 import profile from "@/views/Profile.vue";
 import users from "@/views/Users.vue";
-import tweets from "@/views/Tweets.vue";
 import editprofile from "@/views/EditProfile.vue";
 import discover from "@/views/Discover.vue";
 
@@ -42,11 +41,6 @@ const routes = [
     path: "/users",
     name: "users",
     component: users,
-  },
-  {
-    path: "/tweets",
-    name: "tweets",
-    component: tweets,
   },
   {
     path: "/users/:id",

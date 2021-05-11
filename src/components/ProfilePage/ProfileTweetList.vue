@@ -1,5 +1,5 @@
 <template>
-  <div v-if="userTweets[0].userId === Number($route.params.id)">
+  <div>
     <ind-tweet
       v-for="tweet in userTweets"
       :key="tweet.tweetId"
@@ -34,7 +34,7 @@ export default {
         },
       })
       .then((res) => {
-        this.$store.commit("setUserTweets", res.data.reverse());
+        this.$store.commit("setUserTweets", res.data);
         for (let i = 0; i < this.$store.state.userTweets.length; i++) {
           if (this.$store.state.userTweets[i].userImageUrl === null) {
             this.$store.state.userTweets[i].userImageUrl =

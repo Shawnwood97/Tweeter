@@ -125,12 +125,13 @@ export default {
   display: grid;
   place-items: center;
   min-height: 100vh;
+  width: 100vw;
 }
 
 #login {
   display: grid;
   place-items: center;
   gap: 20px;
-  width: 100%;
+  width: 320px;
 }
 </style>

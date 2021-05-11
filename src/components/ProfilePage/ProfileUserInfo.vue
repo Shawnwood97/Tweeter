@@ -27,7 +27,7 @@
                 :icon="['fas', 'birthday-cake']"
               />{{ userInfo.birthdate }}
             </p>
-            <p v-if="userFollowers !== null" class="profileCounters">
+            <!-- <p v-if="userFollowers !== null" class="profileCounters">
               Followers: {{ userFollowers.length }}
             </p>
             <p v-if="userFollows !== null" class="profileCounters">
@@ -35,7 +35,7 @@
             </p>
             <p class="profileCounters">
               Tweets: {{ $store.state.userTweets.length }}
-            </p>
+            </p> -->
             <div
               id="profileEdit"
               v-if="userInfo.userId === $store.state.userId"
@@ -165,7 +165,7 @@ export default {
 
     #lastProfileRow {
       display: grid;
-      grid-template-columns: repeat(5, auto);
+      grid-template-columns: repeat(2, auto);
 
       #profileBirthDate {
         font-size: 0.9rem;

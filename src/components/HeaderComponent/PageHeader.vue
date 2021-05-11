@@ -45,7 +45,7 @@ header {
   display: grid;
   grid-template-columns: auto 1fr auto;
   place-items: center;
-  height: 6vh;
+  height: 7vh;
   position: fixed;
   top: 0;
   background: $mainColor;

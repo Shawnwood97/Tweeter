@@ -18,6 +18,12 @@ export default {
   components: { IndTweet, CreateTweet },
   name: "feed",
 
+  mounted() {
+    if (!this.$store.state.loginToken) {
+      this.$router.push("/");
+    }
+  },
+
   computed: {
     getFollowedTweets() {
       return this.$store.getters.followedUsersTweets;

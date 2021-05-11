@@ -15,10 +15,10 @@ export default {
   components: { ProfileUserInfo, ProfileTweetList, CreateTweet },
   name: "profile",
 
-  data() {
-    return {
-      localUserId: this.$store.state.userId,
-    };
+  mounted() {
+    if (!this.$store.state.loginToken) {
+      this.$router.push("/");
+    }
   },
 };
 </script>

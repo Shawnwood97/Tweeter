@@ -40,8 +40,8 @@
           type="text"
           rows="1"
           :min-height="20"
-          :value="tweetInfo.content"
           v-model="editInput"
+          :value="tweetInfo.content"
           id="editInput"
         />
         <input
