@@ -1,22 +1,32 @@
 <template>
-  <div>
-    <article>
-      <img class="profileImage" :src="user.imageUrl" />
-      <router-link
-        :to="{
-          name: 'profile',
-          params: { id: user.userId },
-        }"
-      >
-        <h5>{{ user.username }}</h5>
-      </router-link>
+  <article>
+    <div class="topRow">
+      <img
+        class="profileImage"
+        :src="user.imageUrl"
+        :alt="`${user.username}'s Profile Picture`"
+      />
+
+      <h4>
+        <router-link
+          :to="{
+            name: 'profile',
+            params: { id: user.userId },
+          }"
+          >{{ user.username }}
+        </router-link>
+      </h4>
+
+      <div></div>
       <profile-follow-button
+        class="followButton"
         v-if="user.userId !== $store.state.userId"
         :currentProfile="user"
       />
-      <p>{{ user.bio }}</p>
-    </article>
-  </div>
+    </div>
+
+    <p>{{ user.bio }}</p>
+  </article>
 </template>
 
 <script>
@@ -39,11 +49,33 @@ export default {
 
 <style lang="scss" scoped>
 article {
-  border: 1px solid #000;
-  margin: 5px;
+  background: $secColor;
+  border-radius: 5px;
+  margin: 10px;
+  box-shadow: $bsMain;
+  display: grid;
+  padding: 5px;
+  .topRow {
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
+    h4 {
+      margin-left: 5px;
+      height: 10px;
+    }
+    .profileImage {
+      background: $mainColor;
+      width: 50px;
+      border-radius: 5px;
+      border: 2px solid $mainColor;
+    }
 
-  .profileImage {
-    width: 80px;
+    .followButton {
+      place-self: start end;
+    }
+  }
+
+  p {
+    margin-top: 5px;
   }
 }
 </style>

@@ -55,6 +55,14 @@ export default {
         .then((res) => {
           this.userTweets.unshift(res.data);
           this.tweetContent = "";
+
+          this.$store.commit(
+            "setSiteMessage",
+            `You Created A Tweet, Check Your Profile To See It`
+          );
+          setTimeout(() => {
+            this.$store.commit("setSiteMessage", "");
+          }, 3000);
         })
         .catch(() => {
           this.$store.commit("setSiteError", "Error Posting Tweet, Try Again");

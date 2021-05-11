@@ -24,9 +24,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-article {
-  border: 1px solid #000;
-  margin: 5px;
-}
-</style>
+<style lang="scss" scoped></style>

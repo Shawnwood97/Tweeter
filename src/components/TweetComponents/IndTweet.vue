@@ -245,8 +245,7 @@ export default {
             tweetId: this.tweetInfo.tweetId,
           },
         })
-        .then((res) => {
-          console.log(res.data);
+        .then(() => {
           for (let i = 0; i < this.$store.state.userTweets.length; i++) {
             if (
               this.$store.state.userTweets[i].tweetId === this.tweetInfo.tweetId

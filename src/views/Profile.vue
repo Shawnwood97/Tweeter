@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import cookies from "vue-cookies";
 import ProfileTweetList from "../components/ProfilePage/ProfileTweetList.vue";
 import ProfileUserInfo from "../components/ProfilePage/ProfileUserInfo.vue";
 import CreateTweet from "../components/TweetComponents/CreateTweet.vue";
@@ -18,7 +17,7 @@ export default {
 
   data() {
     return {
-      localUserId: cookies.get("userId"),
+      localUserId: this.$store.state.userId,
     };
   },
 };

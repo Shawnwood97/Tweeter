@@ -27,7 +27,15 @@
                 :icon="['fas', 'birthday-cake']"
               />{{ userInfo.birthdate }}
             </p>
-
+            <p v-if="userFollowers !== null" class="profileCounters">
+              Followers: {{ userFollowers.length }}
+            </p>
+            <p v-if="userFollows !== null" class="profileCounters">
+              Following: {{ userFollows.length }}
+            </p>
+            <p class="profileCounters">
+              Tweets: {{ $store.state.userTweets.length }}
+            </p>
             <div
               id="profileEdit"
               v-if="userInfo.userId === $store.state.userId"
@@ -44,7 +52,7 @@
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 import ProfileFollowButton from "./ProfileFollowButton.vue";
 export default {
   components: { ProfileFollowButton },
@@ -55,6 +63,8 @@ export default {
       userInfo: null,
       displayPicture: null,
       allUsers: this.$store.state.allUsers,
+      userFollows: null,
+      userFollowers: null,
     };
   },
 
@@ -65,6 +75,53 @@ export default {
         break;
       }
     }
+
+    axios
+      .request({
+        url: "https://tweeterest.ml/api/follows",
+        method: "GET",
+        headers: {
+          "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
+        },
+        params: {
+          userId: this.userInfo.userId,
+        },
+      })
+      .then((res) => {
+        this.userFollows = res.data;
+      })
+      .catch(() => {
+        this.$store.commit(
+          "setSiteError",
+          "Error Getting Followed Users, Try Refreshing!"
+        );
+        setTimeout(() => {
+          this.$store.commit("setSiteError", "");
+        }, 3000);
+      });
+    axios
+      .request({
+        url: "https://tweeterest.ml/api/followers",
+        method: "GET",
+        headers: {
+          "X-Api-Key": `${process.env.VUE_APP_API_KEY}`,
+        },
+        params: {
+          userId: this.userInfo.userId,
+        },
+      })
+      .then((res) => {
+        this.userFollowers = res.data;
+      })
+      .catch(() => {
+        this.$store.commit(
+          "setSiteError",
+          "Error Getting Followers, Try Refreshing!"
+        );
+        setTimeout(() => {
+          this.$store.commit("setSiteError", "");
+        }, 3000);
+      });
   },
 };
 </script>
@@ -108,11 +165,16 @@ export default {
 
     #lastProfileRow {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: repeat(5, auto);
 
       #profileBirthDate {
         font-size: 0.9rem;
         color: $altText;
+      }
+      .profileCounters {
+        font-size: 0.8rem;
+        color: #ffffff;
+        align-self: end;
       }
 
       #profileBirthDate {

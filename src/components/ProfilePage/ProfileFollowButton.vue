@@ -125,6 +125,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.followUser:hover,
+.unfollowUser:hover {
+  cursor: pointer;
+}
+
 .followUser path {
   fill: $mainLink;
 }

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="userTweets[0].userId === Number($route.params.id)">
     <ind-tweet
       v-for="tweet in userTweets"
       :key="tweet.tweetId"
