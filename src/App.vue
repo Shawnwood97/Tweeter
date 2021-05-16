@@ -87,6 +87,7 @@ export default {
     }
     #loggedInRouter {
       max-width: 900px;
+      min-width: 900px;
       margin: -61px 0;
       border-left: 3px solid #000;
       border-right: 3px solid #000;
