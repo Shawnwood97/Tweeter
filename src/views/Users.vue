@@ -31,4 +31,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@media only screen and (min-width: 1200px) {
+  section {
+    min-width: 900px;
+  }
+}
+</style>

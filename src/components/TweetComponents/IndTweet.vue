@@ -1,21 +1,5 @@
 <template>
   <div class="tweet">
-    <!-- <div>
-      <button
-        id="editButton"
-        v-if="tweetInfo.userId === $store.state.userId"
-        @click="enableEdit"
-      >
-        Edit
-      </button>
-      <button
-        id="deleteButton"
-        v-if="tweetInfo.userId === $store.state.userId"
-        @click="deleteTweet"
-      >
-        Delete
-      </button>
-    </div> -->
     <div class="tweetColGrid">
       <img :src="`${tweetInfo.userImageUrl}`" />
       <div class="userAtContent">
@@ -40,7 +24,6 @@
           type="text"
           rows="1"
           :min-height="20"
-          v-model="editInput"
           :value="tweetInfo.content"
           id="editInput"
         />
@@ -48,7 +31,6 @@
           type="submit"
           value="Submit"
           for="editInput"
-          :disabled="editDisabled"
           @click="editTweet"
         />
       </form>
@@ -86,7 +68,6 @@
           id="commentInput"
           placeholder="Enter Comment"
           rows="1"
-          v-model="commentInput"
           :minHeight="20"
         />
         <input

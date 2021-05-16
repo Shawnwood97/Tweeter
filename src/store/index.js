@@ -75,9 +75,9 @@ export default new Vuex.Store({
     setUserTweets(state, data) {
       state.userTweets = data.reverse();
     },
-    setCurrProfileTweets(state, data) {
-      state.currProfileTweets = data.reverse();
-    },
+    // setCurrProfileTweets(state, data) {
+    //   state.currProfileTweets = data.reverse();
+    // },
     setAllCommentLikes(state, data) {
       state.allCommentLikes = data;
     },
@@ -321,7 +321,9 @@ export default new Vuex.Store({
     getCurrProfileTweets(state) {
       return state.allTweets
         .filter(
-          (tweet) => tweet.userId === Number(router.currentRoute.params.id)
+          (tweet) =>
+            tweet.userId === Number(router.currentRoute.params.id) &&
+            tweet.userId !== state.userId
         )
         .reverse();
     },

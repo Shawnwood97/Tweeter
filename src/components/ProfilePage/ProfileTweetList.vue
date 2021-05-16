@@ -1,10 +1,14 @@
 <template>
   <div>
-    <ind-tweet
-      v-for="tweet in userTweets"
-      :key="tweet.tweetId"
-      :tweetInfo="tweet"
-    />
+    <div v-if="userTweets.length > 0">
+      <div v-if="Number($route.params.id) === userTweets[0].userId">
+        <ind-tweet
+          v-for="tweet in userTweets"
+          :key="tweet.tweetId"
+          :tweetInfo="tweet"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -19,9 +23,14 @@ export default {
     userTweets() {
       return this.$store.state.userTweets;
     },
+
+    otherUserTweets() {
+      return this.$store.getters.getCurrProfileTweets;
+    },
   },
 
   mounted() {
+    // console.log(this.otherUserTweets);
     axios
       .request({
         url: "https://tweeterest.ml/api/tweets",

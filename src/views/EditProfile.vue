@@ -328,6 +328,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media only screen and (min-width: 1200px) {
+  #mainGrid {
+    min-width: 880px;
+  }
+}
 h2 {
   margin: 10px 0 10px 10px;
 }

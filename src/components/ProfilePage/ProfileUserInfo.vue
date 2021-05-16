@@ -27,15 +27,7 @@
                 :icon="['fas', 'birthday-cake']"
               />{{ userInfo.birthdate }}
             </p>
-            <!-- <p v-if="userFollowers !== null" class="profileCounters">
-              Followers: {{ userFollowers.length }}
-            </p>
-            <p v-if="userFollows !== null" class="profileCounters">
-              Following: {{ userFollows.length }}
-            </p>
-            <p class="profileCounters">
-              Tweets: {{ $store.state.userTweets.length }}
-            </p> -->
+
             <div
               id="profileEdit"
               v-if="userInfo.userId === $store.state.userId"
