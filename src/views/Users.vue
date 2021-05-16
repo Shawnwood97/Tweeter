@@ -34,7 +34,7 @@ export default {
 <style lang="scss" scoped>
 @media only screen and (min-width: 1200px) {
   section {
-    min-width: 900px;
+    min-width: 890px;
   }
 }
 </style>
